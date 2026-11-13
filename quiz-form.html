@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -413,6 +413,9 @@
 
         function selectAnswer(index) {
             const q = shuffledQuestions[currentQuestion];
+
+            // Only increment score if this is the first time answering (was null)
+            const isFirstAnswer = answered[currentQuestion] === null;
             answered[currentQuestion] = index;
 
             const options = document.querySelectorAll('.option');
@@ -429,7 +432,7 @@
             if (index === q.correct) {
                 feedback.classList.add('correct');
                 feedback.innerHTML = `✓ Correct! ${q.explanation}`;
-                if (answered[currentQuestion] !== index) {
+                if (isFirstAnswer) {
                     score++;
                 }
                 options[index].classList.add('correct');
@@ -441,6 +444,7 @@
             }
 
             updateProgress();
+            updateButtons();
         }
 
         function updateProgress() {
