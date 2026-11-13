@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latin Roots Quiz - vis/vid</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .container { max-width: 700px; width: 100%; }
+        .header { text-align: center; color: white; margin-bottom: 30px; }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .header p { font-size: 1.1em; opacity: 0.9; }
+        .progress-container { background-color: rgba(255, 255, 255, 0.2); border-radius: 10px; padding: 15px; margin-bottom: 30px; color: white; }
+        .progress-text { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.95em; }
+        .progress-bar { background-color: rgba(255, 255, 255, 0.3); height: 8px; border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background-color: #4ade80; transition: width 0.3s ease; }
+        .quiz-card { background: white; border-radius: 12px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); padding: 40px; margin-bottom: 30px; }
+        .question-number { font-size: 0.9em; color: #667eea; font-weight: 600; margin-bottom: 10px; }
+        .question-text { font-size: 1.3em; font-weight: 600; margin-bottom: 25px; color: #333; }
+        .options { display: flex; flex-direction: column; gap: 12px; }
+        .option { padding: 15px; border: 2px solid #e0e0e0; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; background: white; font-size: 1em; }
+        .option:hover { border-color: #667eea; background-color: #f8f9ff; }
+        .option input[type="radio"] { margin-right: 10px; }
+        .option.selected { border-color: #667eea; background-color: #f0f4ff; }
+        .option.correct { border-color: #4ade80; background-color: #f0fdf4; }
+        .option.incorrect { border-color: #ef4444; background-color: #fef2f2; }
+        .feedback { display: none; margin-top: 20px; padding: 15px; border-radius: 8px; font-weight: 500; }
+        .feedback.show { display: block; }
+        .feedback.correct { background-color: #dcfce7; color: #166534; border-left: 4px solid #4ade80; }
+        .feedback.incorrect { background-color: #fee2e2; color: #991b1b; border-left: 4px solid #ef4444; }
+        .controls { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        button { padding: 12px 24px; font-size: 1em; border: none; border-radius: 8px; background: white; color: #667eea; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
+        button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); background: #f0f0f0; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .button-primary { background: #4ade80; color: white; }
+        .button-primary:hover { background: #22c55e; color: white; }
+        .results { display: none; background: white; border-radius: 12px; padding: 40px; text-align: center; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); }
+        .results.show { display: block; }
+        .score-display { font-size: 3em; font-weight: 700; color: #667eea; margin-bottom: 10px; }
+        .results-text { font-size: 1.3em; color: #333; margin-bottom: 30px; }
+        .results-message { font-size: 1.1em; color: #666; margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 Root Word Quiz</h1>
+            <p>Master the root: vis/vid (see)</p>
+        </div>
+        <div class="progress-container">
+            <div class="progress-text">
+                <span id="progressText">Question 1 of 15</span>
+                <span id="scoreText">Score: 0/0</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+        <div class="quiz-card" id="quizCard">
+            <div class="question-number" id="questionNumber">Question 1</div>
+            <div class="question-text" id="questionText"></div>
+            <div class="options" id="optionsContainer"></div>
+            <div class="feedback" id="feedback"></div>
+        </div>
+        <div class="results" id="results">
+            <div class="score-display" id="finalScore">15/15</div>
+            <div class="results-text">Quiz Complete!</div>
+            <div class="results-message" id="resultsMessage"></div>
+            <button class="button-primary" onclick="restartQuiz()">Restart Quiz</button>
+        </div>
+        <div class="controls">
+            <button onclick="previousQuestion()" id="prevBtn">← Previous</button>
+            <button class="button-primary" onclick="nextQuestion()" id="nextBtn">Next →</button>
+        </div>
+    </div>
+    <script>
+        const quizData = [
+            {question: "What does the root 'vis/vid' mean?", options: ["To speak", "To build", "To see, look, or perceive", "To pull"], correct: 2, explanation: "Vis/vid means to see, look, or perceive through sight."},
+            {question: "Which word means 'able to be seen clearly'?", options: ["Invisible", "Revise", "Visible", "Vision"], correct: 2, explanation: "Visible means able to be seen (vis + -ible = able to be seen)."},
+            {question: "What does 'invisible' mean?", options: ["Clearly visible", "Not able to be seen", "Able to be revised", "Providing vision"], correct: 1, explanation: "Invisible means not visible (in- = not; vis + -ible)."},
+            {question: "Which word means 'the state of being able to be seen'?", options: ["Vision", "Visibility", "Revision", "Provision"], correct: 1, explanation: "Visibility is the quality of being visible (vis + -ibility)."},
+            {question: "What does 'revise' mean?", options: ["To see for the first time", "To look over again to correct", "To refuse to see", "To provide sight"], correct: 1, explanation: "Revise means to look over again (re- = again; vis = see)."},
+            {question: "Which word means 'facts that make something clearly seen or proven'?", options: ["Provision", "Revision", "Evidence", "Vision"], correct: 2, explanation: "Evidence is made clearly seen (e- = out; vid = see)."},
+            {question: "What does 'provide' mean?", options: ["To look back", "To refuse to see", "To look ahead and supply", "To look away"], correct: 2, explanation: "Provide means to see ahead and prepare (pro- = ahead; vid = see)."},
+            {question: "Which word means 'to picture in the mind's eye'?", options: ["Revision", "Provision", "Envision", "Division"], correct: 2, explanation: "Envision means to imagine (en- = in; vis = see)."},
+            {question: "What is 'vision'?", options: ["A spoken word", "The ability to see; a mental image", "A physical object", "A refusal to see"], correct: 1, explanation: "Vision is the ability or power of seeing (vid + -ion)."},
+            {question: "What is 'video'?", options: ["A spoken performance", "A written text", "A recording of moving images", "A photograph"], correct: 2, explanation: "Video means 'I see' in Latin; technology for seeing images."},
+            {question: "In Chinese, 'vis/vid' is primarily translated as:", options: ["说 (speak)", "建 (build)", "看 / 观察 (see, observe)", "拉 (pull)"], correct: 2, explanation: "看 (kàn) means to see, and 观察 (guān chá) means to observe."},
+            {question: "What is 'provision'?", options: ["A vision quest", "A refusal to serve", "A supply or condition clause", "A spoken rule"], correct: 2, explanation: "Provision is supplies seen ahead (pro- + vision + -ion)."},
+            {question: "What is 'revision'?", options: ["A new vision", "Looking again to improve", "A refusal to change", "A spoken approval"], correct: 1, explanation: "Revision is reviewing and changing (re- + vision + -ion)."},
+            {question: "Break down 'evidence': e + vid + -ence means:", options: ["Hidden sight", "Clearly seen or obvious", "Internal vision", "External refusal"], correct: 1, explanation: "E (out) + vid (see) + -ence = something made clearly seen."},
+            {question: "Which is NOT directly derived from 'vis/vid'?", options: ["Vision", "Provide", "Divide", "Evidence"], correct: 2, explanation: "Divide comes from di- (apart) + vidual, not from vis/vid root."}
+        ];
+        let currentQuestion = 0, score = 0, answered = [], shuffledQuestions = [];
+        function shuffleArray(array) { let arr = [...array]; for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
+        function initQuiz() { shuffledQuestions = shuffleArray(quizData); answered = new Array(shuffledQuestions.length).fill(null); currentQuestion = 0; score = 0; displayQuestion(); }
+        function displayQuestion() { const q = shuffledQuestions[currentQuestion]; document.getElementById('questionNumber').textContent = `Question ${currentQuestion + 1}`; document.getElementById('questionText').textContent = q.question; document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} of ${shuffledQuestions.length}`; const optionsContainer = document.getElementById('optionsContainer'); optionsContainer.innerHTML = ''; q.options.forEach((option, index) => { const label = document.createElement('label'); label.className = 'option'; label.innerHTML = `<input type="radio" name="answer" value="${index}" ${answered[currentQuestion] === index ? 'checked' : ''}>${option}`; label.onclick = () => selectAnswer(index); optionsContainer.appendChild(label); }); document.getElementById('feedback').className = 'feedback'; document.getElementById('feedback').innerHTML = ''; updateProgress(); updateButtons(); }
+        function selectAnswer(index) { const q = shuffledQuestions[currentQuestion]; answered[currentQuestion] = index; const options = document.querySelectorAll('.option'); options.forEach((opt, i) => { opt.classList.remove('selected', 'correct', 'incorrect'); if (i === index) opt.classList.add('selected'); }); const feedback = document.getElementById('feedback'); feedback.classList.add('show'); if (index === q.correct) { feedback.classList.add('correct'); feedback.innerHTML = `✓ Correct! ${q.explanation}`; if (answered[currentQuestion] !== index) score++; options[index].classList.add('correct'); } else { feedback.classList.add('incorrect'); feedback.innerHTML = `✗ Incorrect. The correct answer is "${q.options[q.correct]}". ${q.explanation}`; options[index].classList.add('incorrect'); options[q.correct].classList.add('correct'); } updateProgress(); }
+        function updateProgress() { const progress = ((currentQuestion + 1) / shuffledQuestions.length) * 100; document.getElementById('progressFill').style.width = progress + '%'; document.getElementById('scoreText').textContent = `Score: ${score}/${currentQuestion + 1}`; }
+        function updateButtons() { document.getElementById('prevBtn').disabled = currentQuestion === 0; document.getElementById('nextBtn').disabled = answered[currentQuestion] === null; }
+        function nextQuestion() { if (currentQuestion < shuffledQuestions.length - 1) { currentQuestion++; displayQuestion(); } else showResults(); }
+        function previousQuestion() { if (currentQuestion > 0) { currentQuestion--; displayQuestion(); } }
+        function showResults() { document.getElementById('quizCard').style.display = 'none'; document.getElementById('nextBtn').style.display = 'none'; document.getElementById('prevBtn').style.display = 'none'; const percentage = Math.round((score / shuffledQuestions.length) * 100); document.getElementById('finalScore').textContent = `${score}/${shuffledQuestions.length}`; let message = ''; if (percentage === 100) message = '🎉 Perfect score! You\'ve mastered this root word!'; else if (percentage >= 80) message = '🌟 Excellent work! You understand this root well!'; else if (percentage >= 60) message = '👍 Good job! Keep practicing to improve!'; else message = '📚 Keep studying! Review the flashcards and try again.'; document.getElementById('resultsMessage').textContent = message + ` (${percentage}%)`; document.getElementById('results').classList.add('show'); }
+        function restartQuiz() { document.getElementById('quizCard').style.display = 'block'; document.getElementById('nextBtn').style.display = 'inline-block'; document.getElementById('prevBtn').style.display = 'inline-block'; document.getElementById('results').classList.remove('show'); initQuiz(); }
+        initQuiz();
+    </script>
+</body>
+</html>
