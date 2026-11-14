@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 3A: Root 'port' - Flashcards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background-color: white;
+            color: #667eea;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card {
+            perspective: 1000px;
+            margin-bottom: 20px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .card-back {
+            background: white;
+            color: #333;
+            transform: rotateY(180deg);
+        }
+
+        .card-front h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .card-front .hint {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 20px;
+        }
+
+        .card-back .word {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .card-back .definition {
+            font-size: 16px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .card-back .root {
+            font-size: 13px;
+            background: #f0f0f0;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .card-back .chinese {
+            font-size: 13px;
+            color: #764ba2;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-back .example {
+            font-size: 12px;
+            color: #666;
+            font-style: italic;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+
+        .progress {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 12px 20px;
+            background-color: white;
+            color: #667eea;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .nav-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .root-summary {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .root-summary h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .root-summary p {
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .root-summary strong {
+            color: #333;
+        }
+
+        @media (max-width: 600px) {
+            .card-front h2 {
+                font-size: 28px;
+            }
+
+            .card-back {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Lesson 3A: Root 'port'</h1>
+        <p class="subtitle">Latin: carry, bear, bring</p>
+
+        <div class="controls">
+            <button onclick="shuffleCards()">🔀 Shuffle</button>
+            <button onclick="resetProgress()">🔄 Reset</button>
+            <button onclick="toggleAnswersOnly()">👁️ Answers Only</button>
+        </div>
+
+        <div class="progress">
+            <span id="cardCount">Card 1</span> of <span id="totalCards">12</span>
+        </div>
+
+        <div id="cardContainer">
+            <!-- Cards will be inserted here -->
+        </div>
+
+        <div class="navigation">
+            <button class="nav-button" id="prevBtn" onclick="previousCard()">← Previous</button>
+            <button class="nav-button" id="nextBtn" onclick="nextCard()">Next →</button>
+        </div>
+
+        <div class="root-summary">
+            <h3>🔑 Root Summary</h3>
+            <p><strong>Latin Root:</strong> port = carry, bear, bring</p>
+            <p><strong>Key Prefixes:</strong> trans-, ex-, im-, sup-, re-, de-</p>
+            <p><strong>Key Suffixes:</strong> -able, -er, -ant</p>
+            <p><strong>Memory Tip:</strong> Think of "port" as carrying something - from importing goods to carrying luggage (porter) to bearing importance (important).</p>
+        </div>
+    </div>
+
+    <script>
+        const flashcards = [
+            {
+                word: "TRANSPORT",
+                definition: "To carry goods or people from one place to another",
+                root: "trans- (across) + port (carry)",
+                chinese: "运输/运送 (yùnshù/yùnsòng)",
+                example: "Heavy cargo ships transport goods across the ocean."
+            },
+            {
+                word: "EXPORT",
+                definition: "To send goods to another country for sale",
+                root: "ex- (out) + port (carry)",
+                chinese: "出口 (chūkǒu)",
+                example: "Local farmers export fresh vegetables to overseas markets."
+            },
+            {
+                word: "IMPORT",
+                definition: "To bring goods into a country from abroad",
+                root: "im- (in) + port (carry)",
+                chinese: "进口 (jìnkǒu)",
+                example: "Singapore needs to import food and energy supplies."
+            },
+            {
+                word: "SUPPORT",
+                definition: "To hold up or bear the weight of something; to help or back up",
+                root: "sup- (under) + port (carry)",
+                chinese: "支持 (zhīchí)",
+                example: "Strong pillars support the weight of the roof structure."
+            },
+            {
+                word: "REPORT",
+                definition: "An account or statement of facts; to give an account of",
+                root: "re- (back) + port (carry)",
+                chinese: "报告 (bàogào)",
+                example: "Journalists must verify facts before publishing a report."
+            },
+            {
+                word: "PORTABLE",
+                definition: "Able to be easily carried or moved",
+                root: "port (carry) + -able (able to)",
+                chinese: "便携式/手提的 (biànxiéshì/shǒutí de)",
+                example: "Tablets are lightweight and portable."
+            },
+            {
+                word: "AIRPORT",
+                definition: "A facility where aircraft take off and land",
+                root: "air + port (carry/place)",
+                chinese: "机场 (jīchǎng)",
+                example: "Arrive at the airport at least two hours before your flight."
+            },
+            {
+                word: "PASSPORT",
+                definition: "An official document that allows travel to foreign countries",
+                root: "pass (pass through) + port (carry/place)",
+                chinese: "护照 (hùzhào)",
+                example: "Keep your passport in a safe place while traveling."
+            },
+            {
+                word: "PORTER",
+                definition: "A person whose job is to carry luggage at a hotel or station",
+                root: "port (carry) + -er (one who)",
+                chinese: "搬运工 (bānyùngōng)",
+                example: "The porter helped us carry our heavy suitcases."
+            },
+            {
+                word: "PORTFOLIO",
+                definition: "A collection of work or investments; a case for carrying documents",
+                root: "port (carry) + folio (leaf/pages)",
+                chinese: "作品集/投资组合 (zuòpǐnjí/tóuzī zǔhé)",
+                example: "Artists display their portfolio to potential clients."
+            },
+            {
+                word: "IMPORTANT",
+                definition: "Of great significance, value, or consequence",
+                root: "im- (in) + port (carry) + -ant (full of)",
+                chinese: "重要的 (zhòngyào de)",
+                example: "Time management is important for exam preparation."
+            },
+            {
+                word: "DEPORT",
+                definition: "To expel a person from a country by official order",
+                root: "de- (away/from) + port (carry)",
+                chinese: "驱逐出境 (qūzhú chūjìng)",
+                example: "The government decided to deport the foreign national."
+            }
+        ];
+
+        let currentCard = 0;
+        let isFlipped = false;
+        let answersOnly = false;
+
+        function renderCard() {
+            const container = document.getElementById('cardContainer');
+            const card = flashcards[currentCard];
+
+            container.innerHTML = `
+                <div class="card ${isFlipped ? 'flipped' : ''}" onclick="flipCard()">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <h2>${card.word}</h2>
+                            <div class="hint">Click to reveal answer</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="word">${card.word}</div>
+                            <div class="definition">${card.definition}</div>
+                            <div class="root">📌 ${card.root}</div>
+                            <div class="chinese">🇨🇳 ${card.chinese}</div>
+                            <div class="example">"${card.example}"</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            if (answersOnly) {
+                document.querySelector('.card').classList.add('flipped');
+                isFlipped = true;
+            }
+
+            updateProgress();
+            updateNavButtons();
+        }
+
+        function flipCard() {
+            const card = document.querySelector('.card');
+            card.classList.toggle('flipped');
+            isFlipped = !isFlipped;
+        }
+
+        function nextCard() {
+            if (currentCard < flashcards.length - 1) {
+                currentCard++;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function previousCard() {
+            if (currentCard > 0) {
+                currentCard--;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function updateProgress() {
+            document.getElementById('cardCount').textContent = currentCard + 1;
+            document.getElementById('totalCards').textContent = flashcards.length;
+        }
+
+        function updateNavButtons() {
+            document.getElementById('prevBtn').disabled = currentCard === 0;
+            document.getElementById('nextBtn').disabled = currentCard === flashcards.length - 1;
+        }
+
+        function shuffleCards() {
+            for (let i = flashcards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+            }
+            currentCard = 0;
+            isFlipped = false;
+            renderCard();
+        }
+
+        function resetProgress() {
+            currentCard = 0;
+            isFlipped = false;
+            answersOnly = false;
+            renderCard();
+        }
+
+        function toggleAnswersOnly() {
+            answersOnly = !answersOnly;
+            renderCard();
+        }
+
+        // Initialize
+        renderCard();
+    </script>
+</body>
+</html>
