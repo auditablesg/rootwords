@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 3C: Root 'cess' & 'cede' - Flashcards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background-color: white;
+            color: #229954;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card {
+            perspective: 1000px;
+            margin-bottom: 20px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+        }
+
+        .card-back {
+            background: white;
+            color: #333;
+            transform: rotateY(180deg);
+        }
+
+        .card-front h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .card-front .hint {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 20px;
+        }
+
+        .card-back .word {
+            font-size: 24px;
+            font-weight: bold;
+            color: #229954;
+            margin-bottom: 15px;
+        }
+
+        .card-back .definition {
+            font-size: 16px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .card-back .root {
+            font-size: 13px;
+            background: #f0f0f0;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .card-back .chinese {
+            font-size: 13px;
+            color: #229954;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-back .example {
+            font-size: 12px;
+            color: #666;
+            font-style: italic;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+
+        .progress {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 12px 20px;
+            background-color: white;
+            color: #229954;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .nav-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .root-summary {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .root-summary h3 {
+            color: #229954;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .root-summary p {
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .root-summary strong {
+            color: #333;
+        }
+
+        @media (max-width: 600px) {
+            .card-front h2 {
+                font-size: 28px;
+            }
+
+            .card-back {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Lesson 3C: Root 'cess' & 'cede'</h1>
+        <p class="subtitle">Latin: go, yield, withdraw, step</p>
+
+        <div class="controls">
+            <button onclick="shuffleCards()">🔀 Shuffle</button>
+            <button onclick="resetProgress()">🔄 Reset</button>
+            <button onclick="toggleAnswersOnly()">👁️ Answers Only</button>
+        </div>
+
+        <div class="progress">
+            <span id="cardCount">Card 1</span> of <span id="totalCards">12</span>
+        </div>
+
+        <div id="cardContainer">
+            <!-- Cards will be inserted here -->
+        </div>
+
+        <div class="navigation">
+            <button class="nav-button" id="prevBtn" onclick="previousCard()">← Previous</button>
+            <button class="nav-button" id="nextBtn" onclick="nextCard()">Next →</button>
+        </div>
+
+        <div class="root-summary">
+            <h3>🔑 Root Summary</h3>
+            <p><strong>Latin Root A:</strong> cess = go, yield, step, proceed</p>
+            <p><strong>Latin Root B:</strong> cede/ceed = go, withdraw, yield</p>
+            <p><strong>Key Prefixes:</strong> pro-, ad-, re-, ex-, pre-, con-, se-</p>
+            <p><strong>Key Suffixes:</strong> -ion, -ible, -or</p>
+            <p><strong>Memory Tip:</strong> Think of "cess/cede" as moving forward or going somewhere - from the process of going through steps to exceeding limits to preceding events.</p>
+        </div>
+    </div>
+
+    <script>
+        const flashcards = [
+            {
+                word: "PROCESS",
+                definition: "A series of actions or steps taken to achieve a particular end",
+                root: "pro- (forward) + cess (go/step)",
+                chinese: "过程 (guòchéng)",
+                example: "Writing a good essay is a step-by-step process that requires planning."
+            },
+            {
+                word: "SUCCESS",
+                definition: "The accomplishment of an aim or purpose; favorable outcome",
+                root: "sub- (under) + cess (go)",
+                chinese: "成功 (chénggōng)",
+                example: "Hard work and consistent daily revision are the keys to success."
+            },
+            {
+                word: "ACCESSIBLE",
+                definition: "Able to be reached or easily obtained; easy to use",
+                root: "ad- (to) + cess (go) + -ible (able)",
+                chinese: "易接近的/可使用的 (yì jiējìn de/kě shǐyòng de)",
+                example: "Ramps and lifts make buildings accessible for students with mobility needs."
+            },
+            {
+                word: "RECESS",
+                definition: "A brief period of rest between classes or work",
+                root: "re- (back) + cess (go)",
+                chinese: "课间休息 (kèjiān xiūxí)",
+                example: "Students eagerly play games during short recess."
+            },
+            {
+                word: "ACCESSION",
+                definition: "The action of agreeing or consenting; coming into power",
+                root: "ad- (to) + cess (go) + -ion (action)",
+                chinese: "同意/就职 (tóngyì/jiùzhí)",
+                example: "The accession of the new monarch was celebrated with a grand ceremony."
+            },
+            {
+                word: "PROCESSION",
+                definition: "A group of people walking in an orderly, formal line",
+                root: "pro- (forward) + cess (go) + -ion (action)",
+                chinese: "队伍/游行 (duìwu/yóuxíng)",
+                example: "The parade featured a colorful procession of marching bands."
+            },
+            {
+                word: "EXCEED",
+                definition: "To go beyond what is allowed or expected; to surpass",
+                root: "ex- (out) + ceed (go)",
+                chinese: "超过/胜过 (chāoguò/shèngguò)",
+                example: "Students should strive not to exceed the word limit in writing."
+            },
+            {
+                word: "PROCEED",
+                definition: "To begin or continue a course of action; to move forward",
+                root: "pro- (forward) + ceed (go)",
+                chinese: "继续/进行 (jìxù/jìnxíng)",
+                example: "After checking safety rules, the team can proceed with arguments."
+            },
+            {
+                word: "CONCEDE",
+                definition: "To admit defeat or yield something reluctantly",
+                root: "con- (together) + cede (go/yield)",
+                chinese: "承认/让步 (chèngrèn/ràngbù)",
+                example: "It takes maturity to concede when you are wrong in an argument."
+            },
+            {
+                word: "PRECEDE",
+                definition: "To come or occur before something in time or order",
+                root: "pre- (before) + cede (go)",
+                chinese: "在...之前 (zài...zhī qiánmiàn)",
+                example: "A detailed introduction must precede the body paragraphs of an essay."
+            },
+            {
+                word: "SUCCESSOR",
+                definition: "A person who succeeds another in a position or role",
+                root: "sub- (under/following) + cess (go) + -or (one who)",
+                chinese: "继任者/继承人 (jìrènzhě/jìchéngrén)",
+                example: "The retiring principal introduced his successor during assembly."
+            },
+            {
+                word: "SECEDE",
+                definition: "To formally withdraw from membership of an organization",
+                root: "se- (apart) + cede (go/withdraw)",
+                chinese: "脱离/分离 (tuōlí/fēnlí)",
+                example: "The southern states decided to secede from the Union in 1861."
+            }
+        ];
+
+        let currentCard = 0;
+        let isFlipped = false;
+        let answersOnly = false;
+
+        function renderCard() {
+            const container = document.getElementById('cardContainer');
+            const card = flashcards[currentCard];
+
+            container.innerHTML = `
+                <div class="card ${isFlipped ? 'flipped' : ''}" onclick="flipCard()">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <h2>${card.word}</h2>
+                            <div class="hint">Click to reveal answer</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="word">${card.word}</div>
+                            <div class="definition">${card.definition}</div>
+                            <div class="root">📌 ${card.root}</div>
+                            <div class="chinese">🇨🇳 ${card.chinese}</div>
+                            <div class="example">"${card.example}"</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            if (answersOnly) {
+                document.querySelector('.card').classList.add('flipped');
+                isFlipped = true;
+            }
+
+            updateProgress();
+            updateNavButtons();
+        }
+
+        function flipCard() {
+            const card = document.querySelector('.card');
+            card.classList.toggle('flipped');
+            isFlipped = !isFlipped;
+        }
+
+        function nextCard() {
+            if (currentCard < flashcards.length - 1) {
+                currentCard++;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function previousCard() {
+            if (currentCard > 0) {
+                currentCard--;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function updateProgress() {
+            document.getElementById('cardCount').textContent = currentCard + 1;
+            document.getElementById('totalCards').textContent = flashcards.length;
+        }
+
+        function updateNavButtons() {
+            document.getElementById('prevBtn').disabled = currentCard === 0;
+            document.getElementById('nextBtn').disabled = currentCard === flashcards.length - 1;
+        }
+
+        function shuffleCards() {
+            for (let i = flashcards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+            }
+            currentCard = 0;
+            isFlipped = false;
+            renderCard();
+        }
+
+        function resetProgress() {
+            currentCard = 0;
+            isFlipped = false;
+            answersOnly = false;
+            renderCard();
+        }
+
+        function toggleAnswersOnly() {
+            answersOnly = !answersOnly;
+            renderCard();
+        }
+
+        // Initialize
+        renderCard();
+    </script>
+</body>
+</html>
