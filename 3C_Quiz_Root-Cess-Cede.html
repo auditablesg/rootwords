@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson 3C: Root 'cess' & 'cede' - Quiz</title>
+    <title>Lesson 3C: Root 'cess' & 'cede' - Complete Quiz</title>
     <style>
         * {
             margin: 0;
@@ -19,7 +19,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             background: white;
             padding: 40px;
@@ -31,6 +31,12 @@
             color: #229954;
             margin-bottom: 10px;
             font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
         }
 
         .header-info {
@@ -59,6 +65,26 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 14px;
+        }
+
+        .word-bank {
+            background: #e8f5e9;
+            border: 2px solid #229954;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .word-bank strong {
+            color: #229954;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .word-bank p {
+            color: #333;
+            font-size: 14px;
+            line-height: 1.6;
         }
 
         .section {
@@ -174,8 +200,8 @@
         .results {
             display: none;
             margin-top: 30px;
-            padding: 20px;
-            background: #e8f5e9;
+            padding: 30px;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
             border: 2px solid #229954;
             border-radius: 10px;
             text-align: center;
@@ -183,18 +209,47 @@
 
         .results.show {
             display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .results h2 {
             color: #229954;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 24px;
         }
 
-        .score {
-            font-size: 48px;
+        .score-display {
+            font-size: 60px;
             font-weight: bold;
             color: #229954;
             margin: 20px 0;
+        }
+
+        .score-percent {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .feedback {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .feedback p {
+            margin-bottom: 10px;
         }
 
         @media (max-width: 600px) {
@@ -213,13 +268,17 @@
             button {
                 width: 100%;
             }
+
+            h1 {
+                font-size: 22px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>📝 Lesson 3C: Root 'cess' & 'cede' - Quiz</h1>
-        <p style="color: #666; margin-bottom: 20px;">Latin: go, yield, withdraw, step</p>
+        <h1>📝 Lesson 3C: Root 'cess' & 'cede' - Complete Quiz</h1>
+        <p class="subtitle">Latin: go, yield, withdraw, step</p>
 
         <form id="quizForm">
             <div class="header-info">
@@ -238,12 +297,12 @@
                 <div class="section-title">SECTION A: Multiple Choice (10 points)</div>
 
                 <div class="question">
-                    <div class="question-text">1. What do "cess" and "cede" mean?</div>
+                    <div class="question-text">1. What do the Latin roots "cess" and "cede" mean?</div>
                     <div class="options">
-                        <div class="option"><input type="radio" name="q1" value="a" id="q1a"><label for="q1a">Build and create</label></div>
-                        <div class="option"><input type="radio" name="q1" value="b" id="q1b"><label for="q1b">Go, yield, withdraw, step</label></div>
-                        <div class="option"><input type="radio" name="q1" value="c" id="q1c"><label for="q1c">Make and produce</label></div>
-                        <div class="option"><input type="radio" name="q1" value="d" id="q1d"><label for="q1d">Lead and guide</label></div>
+                        <div class="option"><input type="radio" name="q1" value="a"><label>Build and create</label></div>
+                        <div class="option"><input type="radio" name="q1" value="b"><label>Go, yield, withdraw, step</label></div>
+                        <div class="option"><input type="radio" name="q1" value="c"><label>Make and produce</label></div>
+                        <div class="option"><input type="radio" name="q1" value="d"><label>Lead and guide</label></div>
                     </div>
                 </div>
 
@@ -286,34 +345,191 @@
                         <div class="option"><input type="radio" name="q5" value="d"><label>To accept responsibility</label></div>
                     </div>
                 </div>
+
+                <div class="question">
+                    <div class="question-text">6. Which word means "to begin or continue a course of action"?</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="q6" value="a"><label>Precede</label></div>
+                        <div class="option"><input type="radio" name="q6" value="b"><label>Concede</label></div>
+                        <div class="option"><input type="radio" name="q6" value="c"><label>Proceed</label></div>
+                        <div class="option"><input type="radio" name="q6" value="d"><label>Secede</label></div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">7. What does "concede" mean?</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="q7" value="a"><label>To form an opinion</label></div>
+                        <div class="option"><input type="radio" name="q7" value="b"><label>To admit defeat or yield reluctantly</label></div>
+                        <div class="option"><input type="radio" name="q7" value="c"><label>To go before something</label></div>
+                        <div class="option"><input type="radio" name="q7" value="d"><label>To formally withdraw</label></div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">8. A "procession" is:</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="q8" value="a"><label>A formal agreement</label></div>
+                        <div class="option"><input type="radio" name="q8" value="b"><label>A list of actions</label></div>
+                        <div class="option"><input type="radio" name="q8" value="c"><label>A group walking in an orderly, formal line</label></div>
+                        <div class="option"><input type="radio" name="q8" value="d"><label>A brief period of rest</label></div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">9. Which word means "to come before something in time or order"?</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="q9" value="a"><label>Succeed</label></div>
+                        <div class="option"><input type="radio" name="q9" value="b"><label>Precede</label></div>
+                        <div class="option"><input type="radio" name="q9" value="c"><label>Accede</label></div>
+                        <div class="option"><input type="radio" name="q9" value="d"><label>Recede</label></div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">10. What is a "successor"?</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="q10" value="a"><label>A person who precedes another</label></div>
+                        <div class="option"><input type="radio" name="q10" value="b"><label>A person who succeeds another in a position or role</label></div>
+                        <div class="option"><input type="radio" name="q10" value="c"><label>A person who withdraws from a group</label></div>
+                        <div class="option"><input type="radio" name="q10" value="d"><label>A person who processes information</label></div>
+                    </div>
+                </div>
             </div>
 
             <!-- SECTION B: Fill in the Blank -->
             <div class="section">
-                <div class="section-title">SECTION B: Fill in the Blank (5 points)</div>
-                <div class="question"><div class="question-text">6. Writing an essay is a __________ that requires planning.</div><input type="text" class="text-input" name="q6"></div>
-                <div class="question"><div class="question-text">7. Hard work is the key to __________.</div><input type="text" class="text-input" name="q7"></div>
-                <div class="question"><div class="question-text">8. Ramps make buildings __________ for all students.</div><input type="text" class="text-input" name="q8"></div>
-                <div class="question"><div class="question-text">9. Students play games during short __________.</div><input type="text" class="text-input" name="q9"></div>
-                <div class="question"><div class="question-text">10. A detailed introduction must __________ the body of an essay.</div><input type="text" class="text-input" name="q10"></div>
+                <div class="word-bank">
+                    <strong>Word Bank for Section B:</strong>
+                    <p>process, success, successful, accessible, recess, exceed, proceed, concede, precede, successor, procession, accession</p>
+                </div>
+
+                <div class="section-title">SECTION B: Fill in the Blank (10 points)</div>
+
+                <div class="question">
+                    <div class="question-text">11. Writing a good essay is a step-by-step __________ that requires planning.</div>
+                    <input type="text" class="text-input" name="q11">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">12. Hard work and daily revision are the keys to academic __________.</div>
+                    <input type="text" class="text-input" name="q12">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">13. The __________ candidates will be notified of their exam results next week.</div>
+                    <input type="text" class="text-input" name="q13">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">14. Ramps and lifts make school buildings fully __________ for students with mobility needs.</div>
+                    <input type="text" class="text-input" name="q14">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">15. Students eagerly play games during short __________.</div>
+                    <input type="text" class="text-input" name="q15">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">16. The national day parade featured a colorful __________ of marching bands.</div>
+                    <input type="text" class="text-input" name="q16">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">17. Students should strive not to __________ the word limit in composition writing.</div>
+                    <input type="text" class="text-input" name="q17">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">18. After checking safety rules, the debate team can __________ with their arguments.</div>
+                    <input type="text" class="text-input" name="q18">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">19. It takes maturity to __________ when you are wrong in an argument.</div>
+                    <input type="text" class="text-input" name="q19">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">20. A detailed introduction must __________ the body paragraphs of an essay.</div>
+                    <input type="text" class="text-input" name="q20">
+                </div>
             </div>
 
             <!-- SECTION C: Prefix & Suffix -->
             <div class="section">
                 <div class="section-title">SECTION C: Prefix & Suffix Work (5 points)</div>
-                <div class="question"><div class="question-text">11. (pro- + cess) Series of steps toward a goal:</div><input type="text" class="text-input" name="q11"></div>
-                <div class="question"><div class="question-text">12. (ad- + cess + -ible) Easy to reach:</div><input type="text" class="text-input" name="q12"></div>
-                <div class="question"><div class="question-text">13. (ex- + ceed) To go beyond:</div><input type="text" class="text-input" name="q13"></div>
-                <div class="question"><div class="question-text">14. (pro- + ceed) To move forward:</div><input type="text" class="text-input" name="q14"></div>
-                <div class="question"><div class="question-text">15. (con- + cede) To admit defeat:</div><input type="text" class="text-input" name="q15"></div>
+
+                <div class="question">
+                    <div class="question-text">21. (pro- + cess) A series of steps toward a goal: __________</div>
+                    <input type="text" class="text-input" name="q21">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">22. (ad- + cess + -ible) Easy to reach or enter: __________</div>
+                    <input type="text" class="text-input" name="q22">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">23. (ex- + ceed) To go beyond a limit: __________</div>
+                    <input type="text" class="text-input" name="q23">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">24. (pro- + ceed) To move forward or continue: __________</div>
+                    <input type="text" class="text-input" name="q24">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">25. (con- + cede) To admit defeat or yield: __________</div>
+                    <input type="text" class="text-input" name="q25">
+                </div>
             </div>
 
-            <!-- SECTION D: Short Answer -->
+            <!-- SECTION D: Comprehension -->
             <div class="section">
-                <div class="section-title">SECTION D: Short Answer (3 points)</div>
-                <div class="question"><div class="question-text">16. How is the AEIS exam described?</div><textarea class="text-input" name="q16"></textarea></div>
-                <div class="question"><div class="question-text">17. What must precede the actual exam?</div><textarea class="text-input" name="q17"></textarea></div>
-                <div class="question"><div class="question-text">18. Create a sentence using "proceed" showing your understanding.</div><textarea class="text-input" name="q18"></textarea></div>
+                <div class="section-title">SECTION D: Comprehension & Short Answer (5 points)</div>
+
+                <div class="question">
+                    <div class="question-text">26. How is the AEIS exam described in the passage?</div>
+                    <textarea class="text-input" name="q26" placeholder="Write your answer..."></textarea>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">27. What must students do to achieve success in the AEIS exam?</div>
+                    <textarea class="text-input" name="q27" placeholder="Write your answer..."></textarea>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">28. According to the passage, what should precede the actual exam?</div>
+                    <textarea class="text-input" name="q28" placeholder="Write your answer..."></textarea>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">29. Find a word in the passage that means "to go beyond."</div>
+                    <textarea class="text-input" name="q29" placeholder="Write your answer..."></textarea>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">30. Why should students have accessibility to help? (Use complete sentence)</div>
+                    <textarea class="text-input" name="q30" placeholder="Write your answer..."></textarea>
+                </div>
+            </div>
+
+            <!-- SECTION E: Application -->
+            <div class="section">
+                <div class="section-title">SECTION E: Application & Creative Thinking (5 points)</div>
+
+                <div class="question">
+                    <div class="question-text">31. Create your own sentence using the word "proceed." Show you understand the meaning.</div>
+                    <textarea class="text-input" name="q31" placeholder="Write your sentence..."></textarea>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">32. Explain the difference between "precede" and "proceed." Use word roots to help explain.</div>
+                    <textarea class="text-input" name="q32" placeholder="Write your explanation..."></textarea>
+                </div>
             </div>
 
             <div class="button-group">
@@ -322,9 +538,16 @@
             </div>
 
             <div class="results" id="results">
-                <h2>Quiz Complete!</h2>
-                <div class="score" id="scoreDisplay">0/25</div>
-                <p style="font-size: 14px; color: #666;">Check your answers with the answer key in the .md file.</p>
+                <h2>📊 Quiz Complete!</h2>
+                <div class="score-display" id="scoreDisplay">0</div>
+                <div class="score-percent" id="scorePercent">0%</div>
+                <div class="feedback">
+                    <p><strong>Results Summary:</strong></p>
+                    <p id="feedbackText">Your answers have been recorded.</p>
+                    <p style="margin-top: 20px; font-size: 14px; color: #999;">
+                        ✓ Check your answers using the answer key in the .md file for detailed feedback.
+                    </p>
+                </div>
             </div>
         </form>
     </div>
@@ -339,33 +562,108 @@
 
         function calculateScore() {
             let score = 0;
-            const answers = {
+            let totalPoints = 60;
+
+            // SECTION A: Multiple Choice (1 point each)
+            const mcAnswers = {
                 q1: 'b', q2: 'c', q3: 'c', q4: 'b', q5: 'b',
-                q6: ['process'],
-                q7: ['success'],
-                q8: ['accessible'],
-                q9: ['recess'],
-                q10: ['precede']
+                q6: 'c', q7: 'b', q8: 'c', q9: 'b', q10: 'b'
             };
 
-            for (let i = 1; i <= 5; i++) {
+            for (let i = 1; i <= 10; i++) {
                 const selected = document.querySelector(`input[name="q${i}"]:checked`);
-                if (selected && selected.value === answers[`q${i}`]) score++;
+                if (selected && selected.value === mcAnswers[`q${i}`]) {
+                    score += 1;
+                }
             }
 
-            for (let i = 6; i <= 10; i++) {
+            // SECTION B: Fill in the Blank (1 point each)
+            const blankAnswers = {
+                q11: ['process'],
+                q12: ['success'],
+                q13: ['successful'],
+                q14: ['accessible'],
+                q15: ['recess'],
+                q16: ['procession'],
+                q17: ['exceed'],
+                q18: ['proceed'],
+                q19: ['concede'],
+                q20: ['precede']
+            };
+
+            for (let i = 11; i <= 20; i++) {
                 const input = document.querySelector(`input[name="q${i}"]`);
                 const userAnswer = input.value.toLowerCase().trim();
-                for (let correct of answers[`q${i}`]) {
-                    if (userAnswer.includes(correct.toLowerCase())) {
-                        score++;
+                for (let correct of blankAnswers[`q${i}`]) {
+                    if (userAnswer === correct.toLowerCase() || userAnswer.includes(correct.toLowerCase())) {
+                        score += 1;
                         break;
                     }
                 }
             }
 
+            // SECTION C: Prefix & Suffix (2 points each)
+            const prefixAnswers = {
+                q21: ['process'],
+                q22: ['accessible'],
+                q23: ['exceed'],
+                q24: ['proceed'],
+                q25: ['concede']
+            };
+
+            for (let i = 21; i <= 25; i++) {
+                const input = document.querySelector(`input[name="q${i}"]`);
+                const userAnswer = input.value.toLowerCase().trim();
+                for (let correct of prefixAnswers[`q${i}`]) {
+                    if (userAnswer === correct.toLowerCase() || userAnswer.includes(correct.toLowerCase())) {
+                        score += 2;
+                        break;
+                    }
+                }
+            }
+
+            // SECTION D: Short Answer (3 points each)
+            for (let i = 26; i <= 30; i++) {
+                const textarea = document.querySelector(`textarea[name="q${i}"]`);
+                const userAnswer = textarea.value.trim();
+                if (userAnswer.length > 20) {
+                    score += 3;
+                } else if (userAnswer.length > 0) {
+                    score += 1.5;
+                }
+            }
+
+            // SECTION E: Creative Thinking (5 points each)
+            for (let i = 31; i <= 32; i++) {
+                const textarea = document.querySelector(`textarea[name="q${i}"]`);
+                const userAnswer = textarea.value.trim();
+                if (userAnswer.length > 30) {
+                    score += 5;
+                } else if (userAnswer.length > 0) {
+                    score += 2.5;
+                }
+            }
+
+            // Display results
+            const percentage = Math.round((score / totalPoints) * 100);
+            document.getElementById('scoreDisplay').textContent = score.toFixed(1) + ' / ' + totalPoints;
+            document.getElementById('scorePercent').textContent = percentage + '%';
+
+            let feedback = '';
+            if (percentage >= 90) {
+                feedback = '🌟 Excellent! You have mastered this lesson!';
+            } else if (percentage >= 80) {
+                feedback = '👏 Great job! You have a strong understanding of these vocabulary words.';
+            } else if (percentage >= 70) {
+                feedback = '📚 Good work! Review the words you missed to strengthen your knowledge.';
+            } else if (percentage >= 60) {
+                feedback = '⚠️ You need more practice. Go back to the flashcards and review the vocabulary.';
+            } else {
+                feedback = '❌ Please study the vocabulary more thoroughly before taking the quiz again.';
+            }
+
+            document.getElementById('feedbackText').innerHTML = feedback;
             document.getElementById('results').classList.add('show');
-            document.getElementById('scoreDisplay').textContent = `${Math.round(score)}/25 Points`;
 
             setTimeout(() => {
                 document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
