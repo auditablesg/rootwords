@@ -138,8 +138,7 @@
             border-color: #667eea;
         }
 
-        .option input[type="radio"],
-        .option input[type="checkbox"] {
+        .option input[type="radio"] {
             margin-right: 10px;
             cursor: pointer;
         }
@@ -205,7 +204,6 @@
             background: linear-gradient(135deg, #f0f7ff 0%, #f5e6ff 100%);
             border: 2px solid #667eea;
             border-radius: 10px;
-            text-align: center;
         }
 
         .results.show {
@@ -228,6 +226,7 @@
             color: #667eea;
             margin-bottom: 15px;
             font-size: 24px;
+            text-align: center;
         }
 
         .score-display {
@@ -235,22 +234,98 @@
             font-weight: bold;
             color: #667eea;
             margin: 20px 0;
+            text-align: center;
         }
 
         .score-percent {
             font-size: 24px;
             color: #666;
             margin-bottom: 20px;
+            text-align: center;
         }
 
         .feedback {
             font-size: 16px;
             color: #333;
             line-height: 1.8;
+            text-align: center;
+            margin-bottom: 30px;
         }
 
         .feedback p {
             margin-bottom: 10px;
+        }
+
+        .answer-key {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border: 1px solid #ddd;
+        }
+
+        .answer-key h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .answer-item {
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+
+        .answer-item.correct {
+            background: #e8f5e9;
+            border-left-color: #27ae60;
+        }
+
+        .answer-item.incorrect {
+            background: #ffebee;
+            border-left-color: #e74c3c;
+        }
+
+        .answer-item .question-num {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .answer-item .correct-label {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .answer-item .incorrect-label {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .student-answer {
+            margin-top: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .correct-answer {
+            margin-top: 5px;
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 14px;
         }
 
         @media (max-width: 600px) {
@@ -272,6 +347,10 @@
 
             h1 {
                 font-size: 22px;
+            }
+
+            .answer-key {
+                font-size: 14px;
             }
         }
     </style>
@@ -542,12 +621,11 @@
                 <h2>📊 Quiz Complete!</h2>
                 <div class="score-display" id="scoreDisplay">0</div>
                 <div class="score-percent" id="scorePercent">0%</div>
-                <div class="feedback">
-                    <p><strong>Results Summary:</strong></p>
-                    <p id="feedbackText">Your answers have been recorded.</p>
-                    <p style="margin-top: 20px; font-size: 14px; color: #999;">
-                        ✓ Check your answers using the answer key in the .md file for detailed feedback.
-                    </p>
+                <div class="feedback" id="feedbackText"></div>
+
+                <div class="answer-key">
+                    <h3>📋 Answer Review</h3>
+                    <div id="answerReview"></div>
                 </div>
             </div>
         </form>
@@ -555,6 +633,40 @@
 
     <script>
         document.getElementById('studentDate').valueAsDate = new Date();
+
+        const mcAnswers = {
+            q1: {correct: 'b', text: 'Carry, bear, bring'},
+            q2: {correct: 'c', text: 'Export'},
+            q3: {correct: 'a', text: 'im- + port + -ant'},
+            q4: {correct: 'b', text: 'A person who carries luggage at a hotel or station'},
+            q5: {correct: 'c', text: 'trans-'},
+            q6: {correct: 'c', text: 'Able to be easily carried or moved'},
+            q7: {correct: 'b', text: 'A passport'},
+            q8: {correct: 'b', text: 'A facility where aircraft take off and land'},
+            q9: {correct: 'b', text: 'Strong pillars support the weight of the roof.'},
+            q10: {correct: 'c', text: 'To expel a person from a country'}
+        };
+
+        const blankAnswers = {
+            q11: ['transport'],
+            q12: ['export'],
+            q13: ['import'],
+            q14: ['support'],
+            q15: ['report'],
+            q16: ['portable'],
+            q17: ['airport'],
+            q18: ['passport'],
+            q19: ['important'],
+            q20: ['portable']
+        };
+
+        const prefixAnswers = {
+            q21: ['transport'],
+            q22: ['export'],
+            q23: ['import'],
+            q24: ['portable'],
+            q25: ['porter']
+        };
 
         document.getElementById('quizForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -564,96 +676,96 @@
         function calculateScore() {
             let score = 0;
             let totalPoints = 60;
+            let answers = [];
 
-            // SECTION A: Multiple Choice (1 point each)
-            const mcAnswers = {
-                q1: 'b',
-                q2: 'c',
-                q3: 'a',
-                q4: 'b',
-                q5: 'c',
-                q6: 'c',
-                q7: 'b',
-                q8: 'b',
-                q9: 'b',
-                q10: 'c'
-            };
-
+            // SECTION A: Multiple Choice
             for (let i = 1; i <= 10; i++) {
                 const selected = document.querySelector(`input[name="q${i}"]:checked`);
-                if (selected && selected.value === mcAnswers[`q${i}`]) {
-                    score += 1;
-                }
+                const isCorrect = selected && selected.value === mcAnswers[`q${i}`].correct;
+
+                if (isCorrect) score += 1;
+
+                answers.push({
+                    question: i,
+                    type: 'mc',
+                    isCorrect: isCorrect,
+                    correct: mcAnswers[`q${i}`].text,
+                    student: selected ? selected.parentElement.textContent.trim() : '(No answer selected)'
+                });
             }
 
-            // SECTION B: Fill in the Blank (1 point each)
-            const blankAnswers = {
-                q11: ['transport'],
-                q12: ['export'],
-                q13: ['import'],
-                q14: ['support'],
-                q15: ['report'],
-                q16: ['portable'],
-                q17: ['airport'],
-                q18: ['passport'],
-                q19: ['important'],
-                q20: ['portable']
-            };
-
+            // SECTION B: Fill in the Blank
             for (let i = 11; i <= 20; i++) {
                 const input = document.querySelector(`input[name="q${i}"]`);
                 const userAnswer = input.value.toLowerCase().trim();
+                let isCorrect = false;
+
                 for (let correct of blankAnswers[`q${i}`]) {
-                    if (userAnswer === correct.toLowerCase() || userAnswer.includes(correct.toLowerCase())) {
-                        score += 1;
+                    if (userAnswer === correct.toLowerCase()) {
+                        isCorrect = true;
                         break;
                     }
                 }
+
+                if (isCorrect) score += 1;
+
+                answers.push({
+                    question: i,
+                    type: 'blank',
+                    isCorrect: isCorrect,
+                    correct: blankAnswers[`q${i}`][0],
+                    student: userAnswer || '(No answer)'
+                });
             }
 
-            // SECTION C: Prefix & Suffix (2 points each)
-            const prefixAnswers = {
-                q21: ['transport'],
-                q22: ['export'],
-                q23: ['import'],
-                q24: ['portable'],
-                q25: ['porter']
-            };
-
+            // SECTION C: Prefix & Suffix
             for (let i = 21; i <= 25; i++) {
                 const input = document.querySelector(`input[name="q${i}"]`);
                 const userAnswer = input.value.toLowerCase().trim();
+                let isCorrect = false;
+
                 for (let correct of prefixAnswers[`q${i}`]) {
-                    if (userAnswer === correct.toLowerCase() || userAnswer.includes(correct.toLowerCase())) {
-                        score += 2;
+                    if (userAnswer === correct.toLowerCase()) {
+                        isCorrect = true;
                         break;
                     }
                 }
+
+                if (isCorrect) score += 2;
+
+                answers.push({
+                    question: i,
+                    type: 'prefix',
+                    isCorrect: isCorrect,
+                    correct: prefixAnswers[`q${i}`][0],
+                    student: userAnswer || '(No answer)'
+                });
             }
 
-            // SECTION D: Short Answer (3 points each - partial credit for attempt)
-            for (let i = 26; i <= 30; i++) {
+            // SECTION D & E: Short answers (shown but not auto-scored)
+            for (let i = 26; i <= 32; i++) {
                 const textarea = document.querySelector(`textarea[name="q${i}"]`);
                 const userAnswer = textarea.value.trim();
-                if (userAnswer.length > 20) {
-                    score += 3; // Full credit for substantial answer
-                } else if (userAnswer.length > 0) {
-                    score += 1.5; // Partial credit for short answer
+
+                if (i <= 30) {
+                    if (userAnswer.length > 20) score += 3;
+                    else if (userAnswer.length > 0) score += 1.5;
+                } else {
+                    if (userAnswer.length > 30) score += 5;
+                    else if (userAnswer.length > 0) score += 2.5;
                 }
+
+                answers.push({
+                    question: i,
+                    type: 'short',
+                    student: userAnswer || '(No answer)'
+                });
             }
 
-            // SECTION E: Creative Thinking (5 points each - credit for attempt)
-            for (let i = 31; i <= 32; i++) {
-                const textarea = document.querySelector(`textarea[name="q${i}"]`);
-                const userAnswer = textarea.value.trim();
-                if (userAnswer.length > 30) {
-                    score += 5; // Full credit for substantial response
-                } else if (userAnswer.length > 0) {
-                    score += 2.5; // Partial credit for any attempt
-                }
-            }
+            displayResults(score, totalPoints, answers);
+        }
 
-            // Display results
+        function displayResults(score, totalPoints, answers) {
             const percentage = Math.round((score / totalPoints) * 100);
             document.getElementById('scoreDisplay').textContent = score.toFixed(1) + ' / ' + totalPoints;
             document.getElementById('scorePercent').textContent = percentage + '%';
@@ -672,6 +784,37 @@
             }
 
             document.getElementById('feedbackText').innerHTML = feedback;
+
+            // Build answer review
+            let reviewHTML = '';
+            answers.forEach(ans => {
+                if (ans.type === 'mc') {
+                    reviewHTML += `
+                        <div class="answer-item ${ans.isCorrect ? 'correct' : 'incorrect'}">
+                            <div class="question-num">Q${ans.question} ${ans.isCorrect ? '<span class="correct-label">✓ CORRECT</span>' : '<span class="incorrect-label">✗ INCORRECT</span>'}</div>
+                            <div class="correct-answer">Correct Answer: ${ans.correct}</div>
+                            <div class="student-answer">Your Answer: ${ans.student}</div>
+                        </div>
+                    `;
+                } else if (ans.type === 'blank' || ans.type === 'prefix') {
+                    reviewHTML += `
+                        <div class="answer-item ${ans.isCorrect ? 'correct' : 'incorrect'}">
+                            <div class="question-num">Q${ans.question} ${ans.isCorrect ? '<span class="correct-label">✓ CORRECT</span>' : '<span class="incorrect-label">✗ INCORRECT</span>'}</div>
+                            <div class="correct-answer">Correct Answer: ${ans.correct}</div>
+                            <div class="student-answer">Your Answer: ${ans.student}</div>
+                        </div>
+                    `;
+                } else {
+                    reviewHTML += `
+                        <div class="answer-item">
+                            <div class="question-num">Q${ans.question}</div>
+                            <div class="student-answer">Your Answer: ${ans.student}</div>
+                        </div>
+                    `;
+                }
+            });
+
+            document.getElementById('answerReview').innerHTML = reviewHTML;
             document.getElementById('results').classList.add('show');
 
             setTimeout(() => {

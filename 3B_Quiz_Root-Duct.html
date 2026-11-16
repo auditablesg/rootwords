@@ -204,7 +204,6 @@
             background: linear-gradient(135deg, #ffe8e8 0%, #ffcccc 100%);
             border: 2px solid #c0392b;
             border-radius: 10px;
-            text-align: center;
         }
 
         .results.show {
@@ -227,6 +226,7 @@
             color: #c0392b;
             margin-bottom: 15px;
             font-size: 24px;
+            text-align: center;
         }
 
         .score-display {
@@ -234,22 +234,98 @@
             font-weight: bold;
             color: #c0392b;
             margin: 20px 0;
+            text-align: center;
         }
 
         .score-percent {
             font-size: 24px;
             color: #666;
             margin-bottom: 20px;
+            text-align: center;
         }
 
         .feedback {
             font-size: 16px;
             color: #333;
             line-height: 1.8;
+            text-align: center;
+            margin-bottom: 30px;
         }
 
         .feedback p {
             margin-bottom: 10px;
+        }
+
+        .answer-key {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border: 1px solid #ddd;
+        }
+
+        .answer-key h3 {
+            color: #c0392b;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #c0392b;
+            padding-bottom: 10px;
+        }
+
+        .answer-item {
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            border-left: 4px solid #c0392b;
+        }
+
+        .answer-item.correct {
+            background: #e8f5e9;
+            border-left-color: #27ae60;
+        }
+
+        .answer-item.incorrect {
+            background: #ffebee;
+            border-left-color: #e74c3c;
+        }
+
+        .answer-item .question-num {
+            font-weight: bold;
+            color: #c0392b;
+            margin-bottom: 5px;
+        }
+
+        .answer-item .correct-label {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .answer-item .incorrect-label {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .student-answer {
+            margin-top: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .correct-answer {
+            margin-top: 5px;
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 14px;
         }
 
         @media (max-width: 600px) {
@@ -277,259 +353,62 @@
 </head>
 <body>
     <div class="container">
-        <h1>📝 Lesson 3B: Root 'duct' (Lead/Guide/Draw) - Complete Quiz</h1>
+        <h1>📝 Lesson 3B: Root 'duct' (Lead/Guide) - Complete Quiz</h1>
         <p class="subtitle">Latin: lead, guide, draw, bring</p>
 
         <form id="quizForm">
             <div class="header-info">
-                <label>
-                    <span>📛 Name:</span>
-                    <input type="text" id="studentName" placeholder="Enter your name">
-                </label>
-                <label>
-                    <span>📅 Date:</span>
-                    <input type="date" id="studentDate">
-                </label>
+                <label><span>📛 Name:</span><input type="text" id="studentName" placeholder="Enter your name"></label>
+                <label><span>📅 Date:</span><input type="date" id="studentDate"></label>
             </div>
 
-            <!-- SECTION A: Multiple Choice -->
             <div class="section">
                 <div class="section-title">SECTION A: Multiple Choice (10 points)</div>
-
-                <div class="question">
-                    <div class="question-text">1. What does the Latin root "duct" mean?</div>
-                    <div class="options">
-                        <div class="option"><input type="radio" name="q1" value="a"><label>Build or construct</label></div>
-                        <div class="option"><input type="radio" name="q1" value="b"><label>Lead, bring, draw, guide</label></div>
-                        <div class="option"><input type="radio" name="q1" value="c"><label>Move or go</label></div>
-                        <div class="option"><input type="radio" name="q1" value="d"><label>Make or create</label></div>
-                    </div>
-                </div>
-
-                <div class="question">
-                    <div class="question-text">2. Which word means "to organize and carry out; to direct a performance"?</div>
-                    <div class="options">
-                        <div class="option"><input type="radio" name="q2" value="a"><label>Produce</label></div>
-                        <div class="option"><input type="radio" name="q2" value="b"><label>Introduce</label></div>
-                        <div class="option"><input type="radio" name="q2" value="c"><label>Conduct</label></div>
-                        <div class="option"><input type="radio" name="q2" value="d"><label>Educate</label></div>
-                    </div>
-                </div>
-
-                <div class="question">
-                    <div class="question-text">3. What is a "product"?</div>
-                    <div class="options">
-                        <div class="option"><input type="radio" name="q3" value="a"><label>The process of making something</label></div>
-                        <div class="option"><input type="radio" name="q3" value="b"><label>Something that is manufactured or produced</label></div>
-                        <div class="option"><input type="radio" name="q3" value="c"><label>A person who makes things</label></div>
-                        <div class="option"><input type="radio" name="q3" value="d"><label>The quality of an item</label></div>
-                    </div>
-                </div>
-
-                <div class="question">
-                    <div class="question-text">4. Which prefix means "into"?</div>
-                    <div class="options">
-                        <div class="option"><input type="radio" name="q4" value="a"><label>con-</label></div>
-                        <div class="option"><input type="radio" name="q4" value="b"><label>pro-</label></div>
-                        <div class="option"><input type="radio" name="q4" value="c"><label>intro-</label></div>
-                        <div class="option"><input type="radio" name="q4" value="d"><label>re-</label></div>
-                    </div>
-                </div>
-
-                <div class="question">
-                    <div class="question-text">5. What does "introduce" mean?</div>
-                    <div class="options">
-                        <div class="option"><input type="radio" name="q5" value="a"><label>To conclude or end something</label></div>
-                        <div class="option"><input type="radio" name="q5" value="b"><label>To manufacture goods</label></div>
-                        <div class="option"><input type="radio" name="q5" value="c"><label>To bring something new into operation or make parties known</label></div>
-                        <div class="option"><input type="radio" name="q5" value="d"><label>To reduce in size</label></div>
-                    </div>
-                </div>
-
-                <div class="question">
-                    <div class="question-text">6. An "aqueduct" is:</div>
-                    <div class="options">
-                        <div class="option"><input type="radio" name="q6" value="a"><label>A type of educational institution</label></div>
-                        <div class="option"><input type="radio" name="q6" value="b"><label>A bridge-like structure that carries water</label></div>
-                        <div class="option"><input type="radio" name="q6" value="c"><label>A conductor's baton</label></div>
-                        <div class="option"><input type="radio" name="q6" value="d"><label>A manufactured product</label></div>
-                    </div>
-                </div>
-
-                <div class="question">
-                    <div class="question-text">7. What does "educate" mean?</div>
-                    <div class="options">
-                        <div class="option"><input type="radio" name="q7" value="a"><label>To produce goods</label></div>
-                        <div class="option"><input type="radio" name="q7" value="b"><label>To conduct experiments</label></div>
-                        <div class="option"><input type="radio" name="q7" value="c"><label>To teach or provide systematic instruction</label></div>
-                        <div class="option"><input type="radio" name="q7" value="d"><label>To reduce costs</label></div>
-                    </div>
-                </div>
-
-                <div class="question">
-                    <div class="question-text">8. A "viaduct" is:</div>
-                    <div class="options">
-                        <div class="option"><input type="radio" name="q8" value="a"><label>A pause in work or school</label></div>
-                        <div class="option"><input type="radio" name="q8" value="b"><label>A conductor of trains</label></div>
-                        <div class="option"><input type="radio" name="q8" value="c"><label>A bridge or series of arches spanning a valley</label></div>
-                        <div class="option"><input type="radio" name="q8" value="d"><label>An educational program</label></div>
-                    </div>
-                </div>
-
-                <div class="question">
-                    <div class="question-text">9. Which word means "making something smaller or less"?</div>
-                    <div class="options">
-                        <div class="option"><input type="radio" name="q9" value="a"><label>Reduction</label></div>
-                        <div class="option"><input type="radio" name="q9" value="b"><label>Production</label></div>
-                        <div class="option"><input type="radio" name="q9" value="c"><label>Introduction</label></div>
-                        <div class="option"><input type="radio" name="q9" value="d"><label>Deduction</label></div>
-                    </div>
-                </div>
-
-                <div class="question">
-                    <div class="question-text">10. What does "productive" mean?</div>
-                    <div class="options">
-                        <div class="option"><input type="radio" name="q10" value="a"><label>Making too much</label></div>
-                        <div class="option"><input type="radio" name="q10" value="b"><label>Producing good or abundant results; achieving a lot</label></div>
-                        <div class="option"><input type="radio" name="q10" value="c"><label>Producing at a slow rate</label></div>
-                        <div class="option"><input type="radio" name="q10" value="d"><label>Able to be produced</label></div>
-                    </div>
-                </div>
+                <div class="question"><div class="question-text">1. What does "duct" mean?</div><div class="options"><div class="option"><input type="radio" name="q1" value="a"><label>Build or construct</label></div><div class="option"><input type="radio" name="q1" value="b"><label>Lead, bring, draw, guide</label></div><div class="option"><input type="radio" name="q1" value="c"><label>Move or go</label></div><div class="option"><input type="radio" name="q1" value="d"><label>Make or create</label></div></div></div>
+                <div class="question"><div class="question-text">2. Which word means "to organize and carry out"?</div><div class="options"><div class="option"><input type="radio" name="q2" value="a"><label>Produce</label></div><div class="option"><input type="radio" name="q2" value="b"><label>Introduce</label></div><div class="option"><input type="radio" name="q2" value="c"><label>Conduct</label></div><div class="option"><input type="radio" name="q2" value="d"><label>Educate</label></div></div></div>
+                <div class="question"><div class="question-text">3. What is a "product"?</div><div class="options"><div class="option"><input type="radio" name="q3" value="a"><label>The process of making something</label></div><div class="option"><input type="radio" name="q3" value="b"><label>Something that is manufactured or produced</label></div><div class="option"><input type="radio" name="q3" value="c"><label>A person who makes things</label></div><div class="option"><input type="radio" name="q3" value="d"><label>The quality of an item</label></div></div></div>
+                <div class="question"><div class="question-text">4. Which prefix means "into"?</div><div class="options"><div class="option"><input type="radio" name="q4" value="a"><label>con-</label></div><div class="option"><input type="radio" name="q4" value="b"><label>pro-</label></div><div class="option"><input type="radio" name="q4" value="c"><label>intro-</label></div><div class="option"><input type="radio" name="q4" value="d"><label>re-</label></div></div></div>
+                <div class="question"><div class="question-text">5. What does "introduce" mean?</div><div class="options"><div class="option"><input type="radio" name="q5" value="a"><label>To conclude or end</label></div><div class="option"><input type="radio" name="q5" value="b"><label>To manufacture goods</label></div><div class="option"><input type="radio" name="q5" value="c"><label>To bring something new into operation</label></div><div class="option"><input type="radio" name="q5" value="d"><label>To reduce in size</label></div></div></div>
+                <div class="question"><div class="question-text">6. An "aqueduct" is:</div><div class="options"><div class="option"><input type="radio" name="q6" value="a"><label>A type of educational institution</label></div><div class="option"><input type="radio" name="q6" value="b"><label>A bridge-like structure that carries water</label></div><div class="option"><input type="radio" name="q6" value="c"><label>A conductor's baton</label></div><div class="option"><input type="radio" name="q6" value="d"><label>A manufactured product</label></div></div></div>
+                <div class="question"><div class="question-text">7. What does "educate" mean?</div><div class="options"><div class="option"><input type="radio" name="q7" value="a"><label>To produce goods</label></div><div class="option"><input type="radio" name="q7" value="b"><label>To conduct experiments</label></div><div class="option"><input type="radio" name="q7" value="c"><label>To teach or provide systematic instruction</label></div><div class="option"><input type="radio" name="q7" value="d"><label>To reduce costs</label></div></div></div>
+                <div class="question"><div class="question-text">8. A "viaduct" is:</div><div class="options"><div class="option"><input type="radio" name="q8" value="a"><label>A pause in work</label></div><div class="option"><input type="radio" name="q8" value="b"><label>A conductor of trains</label></div><div class="option"><input type="radio" name="q8" value="c"><label>A bridge spanning a valley</label></div><div class="option"><input type="radio" name="q8" value="d"><label>An educational program</label></div></div></div>
+                <div class="question"><div class="question-text">9. Which word means "making something smaller"?</div><div class="options"><div class="option"><input type="radio" name="q9" value="a"><label>Reduction</label></div><div class="option"><input type="radio" name="q9" value="b"><label>Production</label></div><div class="option"><input type="radio" name="q9" value="c"><label>Introduction</label></div><div class="option"><input type="radio" name="q9" value="d"><label>Deduction</label></div></div></div>
+                <div class="question"><div class="question-text">10. What does "productive" mean?</div><div class="options"><div class="option"><input type="radio" name="q10" value="a"><label>Making too much</label></div><div class="option"><input type="radio" name="q10" value="b"><label>Producing good or abundant results</label></div><div class="option"><input type="radio" name="q10" value="c"><label>Producing at a slow rate</label></div><div class="option"><input type="radio" name="q10" value="d"><label>Able to be produced</label></div></div></div>
             </div>
 
-            <!-- SECTION B: Fill in the Blank -->
             <div class="section">
-                <div class="word-bank">
-                    <strong>Word Bank for Section B:</strong>
-                    <p>conduct, product, produce, introduce, reduction, educate, education, productive, conductor, aqueduct</p>
-                </div>
-
+                <div class="word-bank"><strong>Word Bank:</strong><p>conduct, product, produce, introduce, reduction, educate, education, productive, conductor, aqueduct</p></div>
                 <div class="section-title">SECTION B: Fill in the Blank (10 points)</div>
-
-                <div class="question">
-                    <div class="question-text">11. Scientists __________ controlled experiments to test their scientific hypotheses.</div>
-                    <input type="text" class="text-input" name="q11">
-                </div>
-
-                <div class="question">
-                    <div class="question-text">12. The orchestra __________ raised his baton to signal the start of the symphony.</div>
-                    <input type="text" class="text-input" name="q12">
-                </div>
-
-                <div class="question">
-                    <div class="question-text">13. Farmers help __________ high-quality crops each season.</div>
-                    <input type="text" class="text-input" name="q13">
-                </div>
-
-                <div class="question">
-                    <div class="question-text">14. Every manufactured __________ must pass strict quality inspections.</div>
-                    <input type="text" class="text-input" name="q14">
-                </div>
-
-                <div class="question">
-                    <div class="question-text">15. The factory implemented measures to achieve a significant __________ in waste.</div>
-                    <input type="text" class="text-input" name="q15">
-                </div>
-
-                <div class="question">
-                    <div class="question-text">16. Schools aim to __________ students in academics and moral values.</div>
-                    <input type="text" class="text-input" name="q16">
-                </div>
-
-                <div class="question">
-                    <div class="question-text">17. Access to quality __________ is essential for national development.</div>
-                    <input type="text" class="text-input" name="q17">
-                </div>
-
-                <div class="question">
-                    <div class="question-text">18. The teacher will __________ a new grammar topic during today's English lesson.</div>
-                    <input type="text" class="text-input" name="q18">
-                </div>
-
-                <div class="question">
-                    <div class="question-text">19. Taking short breaks during study can make revision more __________.</div>
-                    <input type="text" class="text-input" name="q19">
-                </div>
-
-                <div class="question">
-                    <div class="question-text">20. The ancient __________ transported fresh water to the city across the valley.</div>
-                    <input type="text" class="text-input" name="q20">
-                </div>
+                <div class="question"><div class="question-text">11. Scientists __________ controlled experiments.</div><input type="text" class="text-input" name="q11"></div>
+                <div class="question"><div class="question-text">12. The orchestra __________ raised his baton.</div><input type="text" class="text-input" name="q12"></div>
+                <div class="question"><div class="question-text">13. Farmers help __________ high-quality crops.</div><input type="text" class="text-input" name="q13"></div>
+                <div class="question"><div class="question-text">14. Every manufactured __________ must pass inspections.</div><input type="text" class="text-input" name="q14"></div>
+                <div class="question"><div class="question-text">15. The factory achieved a significant __________ in waste.</div><input type="text" class="text-input" name="q15"></div>
+                <div class="question"><div class="question-text">16. Schools aim to __________ students in academics.</div><input type="text" class="text-input" name="q16"></div>
+                <div class="question"><div class="question-text">17. Access to quality __________ is essential.</div><input type="text" class="text-input" name="q17"></div>
+                <div class="question"><div class="question-text">18. The teacher will __________ a new grammar topic.</div><input type="text" class="text-input" name="q18"></div>
+                <div class="question"><div class="question-text">19. Taking breaks can make revision more __________.</div><input type="text" class="text-input" name="q19"></div>
+                <div class="question"><div class="question-text">20. The ancient __________ transported water to the city.</div><input type="text" class="text-input" name="q20"></div>
             </div>
 
-            <!-- SECTION C: Prefix & Suffix -->
             <div class="section">
-                <div class="section-title">SECTION C: Prefix & Suffix Work (5 points)</div>
-
-                <div class="question">
-                    <div class="question-text">21. (con- + duct) To organize and direct: __________</div>
-                    <input type="text" class="text-input" name="q21">
-                </div>
-
-                <div class="question">
-                    <div class="question-text">22. (pro- + duct) To make or manufacture: __________</div>
-                    <input type="text" class="text-input" name="q22">
-                </div>
-
-                <div class="question">
-                    <div class="question-text">23. (intro- + duct) To bring into operation: __________</div>
-                    <input type="text" class="text-input" name="q23">
-                </div>
-
-                <div class="question">
-                    <div class="question-text">24. (e- + duct + -tion) The process of teaching: __________</div>
-                    <input type="text" class="text-input" name="q24">
-                </div>
-
-                <div class="question">
-                    <div class="question-text">25. (pro- + duct + -ive) Producing good results: __________</div>
-                    <input type="text" class="text-input" name="q25">
-                </div>
+                <div class="section-title">SECTION C: Prefix & Suffix (5 points)</div>
+                <div class="question"><div class="question-text">21. (con- + duct) To organize and direct: __________</div><input type="text" class="text-input" name="q21"></div>
+                <div class="question"><div class="question-text">22. (pro- + duct) To make or manufacture: __________</div><input type="text" class="text-input" name="q22"></div>
+                <div class="question"><div class="question-text">23. (intro- + duct) To bring into operation: __________</div><input type="text" class="text-input" name="q23"></div>
+                <div class="question"><div class="question-text">24. (e- + duct + -tion) The process of teaching: __________</div><input type="text" class="text-input" name="q24"></div>
+                <div class="question"><div class="question-text">25. (pro- + duct + -ive) Producing good results: __________</div><input type="text" class="text-input" name="q25"></div>
             </div>
 
-            <!-- SECTION D: Comprehension -->
             <div class="section">
-                <div class="section-title">SECTION D: Comprehension & Short Answer (5 points)</div>
-
-                <div class="question">
-                    <div class="question-text">26. What action did the factory management take to start the improvement process?</div>
-                    <textarea class="text-input" name="q26" placeholder="Write your answer..."></textarea>
-                </div>
-
-                <div class="question">
-                    <div class="question-text">27. Name two improvements the factory made to become more productive.</div>
-                    <textarea class="text-input" name="q27" placeholder="Write your answer..."></textarea>
-                </div>
-
-                <div class="question">
-                    <div class="question-text">28. Why did the factory introduce new machines?</div>
-                    <textarea class="text-input" name="q28" placeholder="Write your answer..."></textarea>
-                </div>
-
-                <div class="question">
-                    <div class="question-text">29. What word in the passage means "systematic instruction"?</div>
-                    <textarea class="text-input" name="q29" placeholder="Write your answer..."></textarea>
-                </div>
-
-                <div class="question">
-                    <div class="question-text">30. How did the company help their employees? (Use complete sentence)</div>
-                    <textarea class="text-input" name="q30" placeholder="Write your answer..."></textarea>
-                </div>
-            </div>
-
-            <!-- SECTION E: Application -->
-            <div class="section">
-                <div class="section-title">SECTION E: Application & Creative Thinking (5 points)</div>
-
-                <div class="question">
-                    <div class="question-text">31. Create your own sentence using the word "conduct." Show you understand the meaning.</div>
-                    <textarea class="text-input" name="q31" placeholder="Write your sentence..."></textarea>
-                </div>
-
-                <div class="question">
-                    <div class="question-text">32. Explain how the prefix "pro-" appears in both "produce" and "productive." What does it mean?</div>
-                    <textarea class="text-input" name="q32" placeholder="Write your explanation..."></textarea>
-                </div>
+                <div class="section-title">SECTION D & E: Short Answer (10 points)</div>
+                <div class="question"><div class="question-text">26. What action did the factory take to improve?</div><textarea class="text-input" name="q26"></textarea></div>
+                <div class="question"><div class="question-text">27. Name two improvements the factory made.</div><textarea class="text-input" name="q27"></textarea></div>
+                <div class="question"><div class="question-text">28. Why did the factory introduce new machines?</div><textarea class="text-input" name="q28"></textarea></div>
+                <div class="question"><div class="question-text">29. What word means "systematic instruction"?</div><textarea class="text-input" name="q29"></textarea></div>
+                <div class="question"><div class="question-text">30. How did the company help their employees?</div><textarea class="text-input" name="q30"></textarea></div>
+                <div class="question"><div class="question-text">31. Create a sentence using "conduct."</div><textarea class="text-input" name="q31"></textarea></div>
+                <div class="question"><div class="question-text">32. Explain how "pro-" appears in both "produce" and "productive."</div><textarea class="text-input" name="q32"></textarea></div>
             </div>
 
             <div class="button-group">
@@ -541,12 +420,10 @@
                 <h2>📊 Quiz Complete!</h2>
                 <div class="score-display" id="scoreDisplay">0</div>
                 <div class="score-percent" id="scorePercent">0%</div>
-                <div class="feedback">
-                    <p><strong>Results Summary:</strong></p>
-                    <p id="feedbackText">Your answers have been recorded.</p>
-                    <p style="margin-top: 20px; font-size: 14px; color: #999;">
-                        ✓ Check your answers using the answer key in the .md file for detailed feedback.
-                    </p>
+                <div class="feedback" id="feedbackText"></div>
+                <div class="answer-key">
+                    <h3>📋 Answer Review</h3>
+                    <div id="answerReview"></div>
                 </div>
             </div>
         </form>
@@ -555,119 +432,92 @@
     <script>
         document.getElementById('studentDate').valueAsDate = new Date();
 
+        const mcAnswers = {
+            q1: {correct: 'b', text: 'Lead, bring, draw, guide'},
+            q2: {correct: 'c', text: 'Conduct'},
+            q3: {correct: 'b', text: 'Something that is manufactured'},
+            q4: {correct: 'c', text: 'intro-'},
+            q5: {correct: 'c', text: 'To bring something new into operation'},
+            q6: {correct: 'b', text: 'A bridge-like structure that carries water'},
+            q7: {correct: 'c', text: 'To teach or provide systematic instruction'},
+            q8: {correct: 'c', text: 'A bridge spanning a valley'},
+            q9: {correct: 'a', text: 'Reduction'},
+            q10: {correct: 'b', text: 'Producing good or abundant results'}
+        };
+
+        const blankAnswers = {q11: ['conduct'], q12: ['conductor'], q13: ['produce'], q14: ['product'], q15: ['reduction'], q16: ['educate'], q17: ['education'], q18: ['introduce'], q19: ['productive'], q20: ['aqueduct']};
+        const prefixAnswers = {q21: ['conduct'], q22: ['produce'], q23: ['introduce'], q24: ['education'], q25: ['productive']};
+
         document.getElementById('quizForm').addEventListener('submit', function(e) {
             e.preventDefault();
             calculateScore();
         });
 
         function calculateScore() {
-            let score = 0;
-            let totalPoints = 60;
-
-            // SECTION A: Multiple Choice (1 point each)
-            const mcAnswers = {
-                q1: 'b', q2: 'c', q3: 'b', q4: 'c', q5: 'c',
-                q6: 'b', q7: 'c', q8: 'c', q9: 'a', q10: 'b'
-            };
+            let score = 0, answers = [];
 
             for (let i = 1; i <= 10; i++) {
                 const selected = document.querySelector(`input[name="q${i}"]:checked`);
-                if (selected && selected.value === mcAnswers[`q${i}`]) {
-                    score += 1;
-                }
+                const isCorrect = selected && selected.value === mcAnswers[`q${i}`].correct;
+                if (isCorrect) score += 1;
+                answers.push({
+                    question: i, type: 'mc', isCorrect,
+                    correct: mcAnswers[`q${i}`].text,
+                    student: selected ? selected.parentElement.textContent.trim() : '(No answer)'
+                });
             }
-
-            // SECTION B: Fill in the Blank (1 point each)
-            const blankAnswers = {
-                q11: ['conduct'],
-                q12: ['conductor'],
-                q13: ['produce'],
-                q14: ['product'],
-                q15: ['reduction'],
-                q16: ['educate'],
-                q17: ['education'],
-                q18: ['introduce'],
-                q19: ['productive'],
-                q20: ['aqueduct']
-            };
 
             for (let i = 11; i <= 20; i++) {
                 const input = document.querySelector(`input[name="q${i}"]`);
                 const userAnswer = input.value.toLowerCase().trim();
-                for (let correct of blankAnswers[`q${i}`]) {
-                    if (userAnswer === correct.toLowerCase() || userAnswer.includes(correct.toLowerCase())) {
-                        score += 1;
-                        break;
-                    }
-                }
+                const isCorrect = (blankAnswers[`q${i}`] || []).some(c => userAnswer === c.toLowerCase());
+                if (isCorrect) score += 1;
+                answers.push({
+                    question: i, type: 'blank', isCorrect,
+                    correct: (blankAnswers[`q${i}`] || [''])[0],
+                    student: userAnswer || '(No answer)'
+                });
             }
-
-            // SECTION C: Prefix & Suffix (2 points each)
-            const prefixAnswers = {
-                q21: ['conduct'],
-                q22: ['produce'],
-                q23: ['introduce'],
-                q24: ['education'],
-                q25: ['productive']
-            };
 
             for (let i = 21; i <= 25; i++) {
                 const input = document.querySelector(`input[name="q${i}"]`);
                 const userAnswer = input.value.toLowerCase().trim();
-                for (let correct of prefixAnswers[`q${i}`]) {
-                    if (userAnswer === correct.toLowerCase() || userAnswer.includes(correct.toLowerCase())) {
-                        score += 2;
-                        break;
-                    }
-                }
+                const isCorrect = (prefixAnswers[`q${i}`] || []).some(c => userAnswer === c.toLowerCase());
+                if (isCorrect) score += 2;
+                answers.push({
+                    question: i, type: 'prefix', isCorrect,
+                    correct: (prefixAnswers[`q${i}`] || [''])[0],
+                    student: userAnswer || '(No answer)'
+                });
             }
 
-            // SECTION D: Short Answer (3 points each)
-            for (let i = 26; i <= 30; i++) {
+            for (let i = 26; i <= 32; i++) {
                 const textarea = document.querySelector(`textarea[name="q${i}"]`);
                 const userAnswer = textarea.value.trim();
-                if (userAnswer.length > 20) {
-                    score += 3;
-                } else if (userAnswer.length > 0) {
-                    score += 1.5;
-                }
+                if (userAnswer.length > 20) score += 1.5;
+                else if (userAnswer.length > 0) score += 0.75;
+                answers.push({question: i, type: 'short', student: userAnswer || '(No answer)'});
             }
 
-            // SECTION E: Creative Thinking (5 points each)
-            for (let i = 31; i <= 32; i++) {
-                const textarea = document.querySelector(`textarea[name="q${i}"]`);
-                const userAnswer = textarea.value.trim();
-                if (userAnswer.length > 30) {
-                    score += 5;
-                } else if (userAnswer.length > 0) {
-                    score += 2.5;
-                }
-            }
-
-            // Display results
-            const percentage = Math.round((score / totalPoints) * 100);
-            document.getElementById('scoreDisplay').textContent = score.toFixed(1) + ' / ' + totalPoints;
+            const percentage = Math.round((score / 60) * 100);
+            document.getElementById('scoreDisplay').textContent = score.toFixed(1) + ' / 60';
             document.getElementById('scorePercent').textContent = percentage + '%';
 
-            let feedback = '';
-            if (percentage >= 90) {
-                feedback = '🌟 Excellent! You have mastered this lesson!';
-            } else if (percentage >= 80) {
-                feedback = '👏 Great job! You have a strong understanding of these vocabulary words.';
-            } else if (percentage >= 70) {
-                feedback = '📚 Good work! Review the words you missed to strengthen your knowledge.';
-            } else if (percentage >= 60) {
-                feedback = '⚠️ You need more practice. Go back to the flashcards and review the vocabulary.';
-            } else {
-                feedback = '❌ Please study the vocabulary more thoroughly before taking the quiz again.';
-            }
-
+            let feedback = percentage >= 90 ? '🌟 Excellent!' : percentage >= 80 ? '👏 Great job!' : percentage >= 70 ? '📚 Good work!' : percentage >= 60 ? '⚠️ Need more practice' : '❌ Study more';
             document.getElementById('feedbackText').innerHTML = feedback;
-            document.getElementById('results').classList.add('show');
 
-            setTimeout(() => {
-                document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
-            }, 100);
+            let reviewHTML = '';
+            answers.forEach(ans => {
+                if (ans.type === 'mc' || ans.type === 'blank' || ans.type === 'prefix') {
+                    reviewHTML += `<div class="answer-item ${ans.isCorrect ? 'correct' : 'incorrect'}"><div class="question-num">Q${ans.question} ${ans.isCorrect ? '<span class="correct-label">✓ CORRECT</span>' : '<span class="incorrect-label">✗ INCORRECT</span>'}</div><div class="correct-answer">Correct: ${ans.correct}</div><div class="student-answer">Your Answer: ${ans.student}</div></div>`;
+                } else {
+                    reviewHTML += `<div class="answer-item"><div class="question-num">Q${ans.question}</div><div class="student-answer">Your Answer: ${ans.student}</div></div>`;
+                }
+            });
+
+            document.getElementById('answerReview').innerHTML = reviewHTML;
+            document.getElementById('results').classList.add('show');
+            setTimeout(() => document.getElementById('results').scrollIntoView({ behavior: 'smooth' }), 100);
         }
     </script>
 </body>
