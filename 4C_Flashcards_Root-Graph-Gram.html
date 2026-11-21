@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards: Root GRAPH/GRAM (write/record)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            overflow: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #27ae60;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .root-info {
+            background: linear-gradient(135deg, #27ae6015 0%, #22995415 100%);
+            border-left: 4px solid #27ae60;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .root-info strong {
+            color: #27ae60;
+            font-size: 18px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            border: 2px solid #27ae60;
+        }
+
+        .btn-secondary:hover {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-special {
+            background: #d5f4e6;
+            color: #27ae60;
+            border: 2px solid #27ae60;
+        }
+
+        .btn-special:hover {
+            background: #27ae60;
+            color: white;
+        }
+
+        .progress {
+            text-align: center;
+            color: #27ae60;
+            font-weight: 600;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .card-container {
+            perspective: 1000px;
+            margin-bottom: 30px;
+            height: 400px;
+            cursor: pointer;
+        }
+
+        .card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            font-size: 48px;
+            font-weight: 700;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #f0fdf4 0%, #d1f2eb 100%);
+            color: #333;
+            transform: rotateY(180deg);
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+            overflow-y: auto;
+            font-size: 14px;
+        }
+
+        .definition {
+            font-size: 16px;
+            font-weight: 600;
+            color: #27ae60;
+            line-height: 1.6;
+        }
+
+        .root-breakdown {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #27ae60;
+        }
+
+        .root-breakdown strong {
+            color: #27ae60;
+        }
+
+        .chinese {
+            font-size: 16px;
+            color: #229954;
+            font-weight: 600;
+        }
+
+        .example {
+            font-size: 13px;
+            color: #555;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-button {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .bottom-section {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #eee;
+        }
+
+        .root-summary {
+            background: linear-gradient(135deg, #27ae6015 0%, #22995415 100%);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+        }
+
+        .root-summary h3 {
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+
+        .root-summary p {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .card-container {
+                height: 350px;
+            }
+
+            .card-face {
+                padding: 30px;
+            }
+
+            .card-front {
+                font-size: 36px;
+            }
+
+            .definition {
+                font-size: 14px;
+            }
+
+            button {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+
+            .card-container {
+                height: 300px;
+            }
+
+            .card-face {
+                padding: 20px;
+            }
+
+            .card-front {
+                font-size: 32px;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>GRAPH/GRAM Root Flashcards</h1>
+            <p>Master words with the root meaning: write, record</p>
+        </div>
+
+        <div class="root-info">
+            <strong>Root: GRAPH/GRAM</strong> means <strong>write, record, drawing</strong>
+            <br>Etymology: Greek grapho/gramma (to write, writing, letters)
+        </div>
+
+        <div class="controls">
+            <button class="btn-secondary" onclick="shuffleCards()">🔀 Shuffle</button>
+            <button class="btn-secondary" onclick="toggleAnswersOnly()">👁️ Answers Only</button>
+            <button class="btn-primary" onclick="resetCards()">↻ Reset</button>
+        </div>
+
+        <div class="progress">
+            <span id="progressText">Card 1 of 12</span>
+        </div>
+
+        <div class="card-container" onclick="flipCard()">
+            <div class="card" id="card">
+                <div class="card-face card-front" id="cardFront"></div>
+                <div class="card-face card-back" id="cardBack"></div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="btn-primary nav-button" onclick="prevCard()">← Previous</button>
+            <span style="color: #27ae60; font-weight: 600; min-width: 50px; text-align: center;" id="cardNumber">1/12</span>
+            <button class="btn-primary nav-button" onclick="nextCard()">Next →</button>
+        </div>
+
+        <div class="bottom-section">
+            <div class="root-summary">
+                <h3>GRAPH/GRAM Root Summary</h3>
+                <p><strong>GRAPH/GRAM (write, record, drawing)</strong> appears in words related to writing, visual representation, and documentation. A graph displays data visually. Geography literally means "writing about the earth." A biography is a written account of someone's life. Grammar is the rules for writing language. Autograph is your unique handwriting/signature. Understanding this root helps you recognize words about communication, writing, and visual documentation.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const flashcards = [
+            {
+                word: "graph",
+                definition: "A diagram showing relationships between numbers or quantities; a visual representation of data",
+                root: "GRAPH (write/draw) - visual writing of information",
+                chinese: "图表；图形",
+                example: "The bar graph clearly shows the sales increase over the quarters."
+            },
+            {
+                word: "graphic",
+                definition: "Presented in a visual form; vivid and detailed; relating to visual representation",
+                root: "GRAPH (write/draw) + -ic (relating to)",
+                chinese: "图形的；生动的；逼真的",
+                example: "The graphic design of the website was very impressive."
+            },
+            {
+                word: "paragraph",
+                definition: "A distinct section of writing dealing with a single topic; a short passage",
+                root: "para- (beside) + GRAPH (write)",
+                chinese: "段落；段；小节",
+                example: "Each paragraph should contain a topic sentence and supporting details."
+            },
+            {
+                word: "grammar",
+                definition: "The system of rules for using language; the study of word forms and sentence structure",
+                root: "GRAM (write/letters) + -mar (from -ar suffix)",
+                chinese: "语法",
+                example: "Good grammar is essential for clear and professional writing."
+            },
+            {
+                word: "telegram",
+                definition: "A message sent by telegraph; a brief written message transmitted electronically",
+                root: "tele- (far/distant) + GRAM (write/message)",
+                chinese: "电报",
+                example: "Before email, people sent telegrams for urgent communication."
+            },
+            {
+                word: "autograph",
+                definition: "A person's own signature; handwriting, especially of a famous person",
+                root: "auto- (self) + GRAPH (write)",
+                chinese: "亲笔签名；签名",
+                example: "The celebrity gave an autograph to each fan."
+            },
+            {
+                word: "biography",
+                definition: "An account of a person's life written by another person; a life story",
+                root: "bio- (life) + GRAPH (write)",
+                chinese: "传记；传记文学",
+                example: "I am reading the biography of Steve Jobs."
+            },
+            {
+                word: "geography",
+                definition: "The study of Earth's places, people, cultures, and physical features; writing about Earth",
+                root: "geo- (earth) + GRAPH (write)",
+                chinese: "地理；地理学",
+                example: "Geography class taught us about different continents and their climates."
+            },
+            {
+                word: "epigram",
+                definition: "A short, witty, and clever saying; a brief satirical poem with a sharp ending",
+                root: "epi- (upon/over) + GRAM (write/saying)",
+                chinese: "警句；隽语",
+                example: "Oscar Wilde was famous for his clever epigrams."
+            },
+            {
+                word: "epitaph",
+                definition: "An inscription on a gravestone or tomb; words written to honor the dead",
+                root: "epi- (upon) + TAPH (from taphos: tomb, writing for tomb)",
+                chinese: "墓志铭；碑文",
+                example: "The epitaph on the grave was touching and memorable."
+            },
+            {
+                word: "hologram",
+                definition: "A three-dimensional image created by laser light; a recorded pattern of light waves",
+                root: "holo- (whole) + GRAM (write/record)",
+                chinese: "全息图；全息投影",
+                example: "The concert featured a hologram of the late musician."
+            },
+            {
+                word: "monograph",
+                definition: "A detailed written study or essay on a single subject; a scholarly work",
+                root: "mono- (one) + GRAPH (write)",
+                chinese: "专论；单篇论文",
+                example: "The professor published a monograph about Renaissance art."
+            }
+        ];
+
+        let currentIndex = 0;
+        let isFlipped = false;
+        let answersOnlyMode = false;
+        let cards = [...flashcards];
+
+        function displayCard() {
+            const card = cards[currentIndex];
+            const cardElement = document.getElementById('card');
+            cardElement.classList.remove('flipped');
+            isFlipped = false;
+
+            if (answersOnlyMode) {
+                displayCardBack(card);
+                cardElement.classList.add('flipped');
+            } else {
+                displayCardFront(card);
+            }
+
+            updateProgress();
+        }
+
+        function displayCardFront(card) {
+            document.getElementById('cardFront').innerHTML = card.word;
+        }
+
+        function displayCardBack(card) {
+            document.getElementById('cardBack').innerHTML = `
+                <div class="definition">${card.definition}</div>
+                <div class="root-breakdown">
+                    <strong>Root Breakdown:</strong><br>${card.root}
+                </div>
+                <div class="chinese">📝 ${card.chinese}</div>
+                <div class="example">💡 Example: "${card.example}"</div>
+            `;
+        }
+
+        function flipCard() {
+            const cardElement = document.getElementById('card');
+            const card = cards[currentIndex];
+
+            if (!isFlipped) {
+                displayCardBack(card);
+            } else {
+                displayCardFront(card);
+            }
+
+            cardElement.classList.toggle('flipped');
+            isFlipped = !isFlipped;
+        }
+
+        function nextCard() {
+            if (currentIndex < cards.length - 1) {
+                currentIndex++;
+                displayCard();
+            }
+        }
+
+        function prevCard() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                displayCard();
+            }
+        }
+
+        function updateProgress() {
+            document.getElementById('progressText').textContent = `Card ${currentIndex + 1} of ${cards.length}`;
+            document.getElementById('cardNumber').textContent = `${currentIndex + 1}/${cards.length}`;
+
+            document.querySelector('[onclick="prevCard()"]').disabled = currentIndex === 0;
+            document.querySelector('[onclick="nextCard()"]').disabled = currentIndex === cards.length - 1;
+        }
+
+        function shuffleCards() {
+            for (let i = cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cards[i], cards[j]] = [cards[j], cards[i]];
+            }
+            currentIndex = 0;
+            displayCard();
+        }
+
+        function resetCards() {
+            cards = [...flashcards];
+            currentIndex = 0;
+            answersOnlyMode = false;
+            displayCard();
+        }
+
+        function toggleAnswersOnly() {
+            answersOnlyMode = !answersOnlyMode;
+            displayCard();
+        }
+
+        // Initialize
+        displayCard();
+    </script>
+</body>
+</html>

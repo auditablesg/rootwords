@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Root Word - Graph/Gram</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(39, 174, 96, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .info-section {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #27ae60;
+        }
+
+        .info-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 15px;
+        }
+
+        .info-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-field label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .info-field input {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .info-field input:focus {
+            outline: none;
+            border-color: #27ae60;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #27ae60;
+        }
+
+        .section h2 {
+            color: #27ae60;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #27ae60;
+        }
+
+        .section-info {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .word-bank {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 2px solid #27ae60;
+        }
+
+        .word-bank strong {
+            color: #27ae60;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .words {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .word-tag {
+            background: white;
+            border: 2px solid #27ae60;
+            color: #27ae60;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .passage {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 3px solid #27ae60;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+
+        .passage strong {
+            color: #229954;
+            font-weight: 600;
+        }
+
+        .question {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .question-text {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #27ae60;
+        }
+
+        .option input[type="radio"],
+        .option input[type="checkbox"] {
+            margin-right: 15px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: #27ae60;
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            margin: 0;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-color: #27ae60;
+        }
+
+        .textarea-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            min-height: 100px;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+
+        .textarea-input:focus {
+            outline: none;
+            border-color: #27ae60;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            padding: 30px;
+            background: #f8f9fa;
+            border-top: 2px solid #ddd;
+        }
+
+        button {
+            padding: 12px 40px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.4);
+        }
+
+        .reset-btn {
+            background: #e9ecef;
+            color: #333;
+            flex: 1;
+            max-width: 200px;
+            border: 2px solid #ddd;
+        }
+
+        .reset-btn:hover {
+            background: #dee2e6;
+            border-color: #27ae60;
+        }
+
+        .results {
+            display: none;
+            padding: 30px;
+        }
+
+        .results.show {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .score-board {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score-board h3 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .score-display {
+            font-size: 3.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .percentage {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .feedback {
+            font-size: 1.3em;
+            font-weight: 600;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+        }
+
+        .answer-review {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid #27ae60;
+        }
+
+        .answer-review h4 {
+            color: #27ae60;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .answer-item {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .answer-item.correct {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+
+        .answer-item.incorrect {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+
+        .answer-item.review-only {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+        }
+
+        .answer-question {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .answer-status {
+            display: inline-block;
+            margin-left: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .answer-status.correct {
+            color: #28a745;
+        }
+
+        .answer-status.incorrect {
+            color: #dc3545;
+        }
+
+        .answer-content {
+            margin-top: 10px;
+            font-size: 0.95em;
+            color: #555;
+        }
+
+        .answer-content strong {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .back-to-quiz {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-to-quiz button {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            padding: 12px 40px;
+        }
+
+        .back-to-quiz button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .info-row {
+                grid-template-columns: 1fr;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .submit-btn,
+            .reset-btn {
+                max-width: 100%;
+            }
+
+            .score-display {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Root Word Quiz: GRAPH/GRAM</h1>
+            <p>Write • Record • Draw</p>
+        </header>
+
+        <div class="info-section">
+            <div class="info-row">
+                <div class="info-field">
+                    <label for="studentName">Student Name:</label>
+                    <input type="text" id="studentName" placeholder="Enter your name">
+                </div>
+                <div class="info-field">
+                    <label for="studentDate">Date:</label>
+                    <input type="date" id="studentDate">
+                </div>
+            </div>
+        </div>
+
+        <div id="quizContainer" class="content">
+            <!-- SECTION A: VOCABULARY & DEFINITIONS -->
+            <div class="section">
+                <h2>Section A: Vocabulary Definitions</h2>
+                <p class="section-info">(8 questions × 1 point = 8 points)</p>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">1</span>What does "graph" mean in its basic form?</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q1" value="a"> <span>a) A visual representation of data</span></label>
+                        <label class="option"><input type="radio" name="q1" value="b"> <span>b) A written description</span></label>
+                        <label class="option"><input type="radio" name="q1" value="c"> <span>c) A musical note</span></label>
+                        <label class="option"><input type="radio" name="q1" value="d"> <span>d) A type of tree</span></label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">2</span>"Grammar" refers to:</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q2" value="a"> <span>a) The study of language and its rules</span></label>
+                        <label class="option"><input type="radio" name="q2" value="b"> <span>b) A type of book</span></label>
+                        <label class="option"><input type="radio" name="q2" value="c"> <span>c) A historical document</span></label>
+                        <label class="option"><input type="radio" name="q2" value="d"> <span>d) A mathematical formula</span></label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">3</span>What is a "biography"?</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q3" value="a"> <span>a) A study of living things</span></label>
+                        <label class="option"><input type="radio" name="q3" value="b"> <span>b) A written account of a person's life</span></label>
+                        <label class="option"><input type="radio" name="q3" value="c"> <span>c) A geographical map</span></label>
+                        <label class="option"><input type="radio" name="q3" value="d"> <span>d) A type of photograph</span></label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">4</span>"Geography" is the study of:</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q4" value="a"> <span>a) The earth and its people</span></label>
+                        <label class="option"><input type="radio" name="q4" value="b"> <span>b) Ancient civilizations</span></label>
+                        <label class="option"><input type="radio" name="q4" value="c"> <span>c) The ocean's depth</span></label>
+                        <label class="option"><input type="radio" name="q4" value="d"> <span>d) Geological rocks and minerals</span></label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">5</span>What is an "autograph"?</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q5" value="a"> <span>a) A self-written signature or inscription</span></label>
+                        <label class="option"><input type="radio" name="q5" value="b"> <span>b) An automatic car</span></label>
+                        <label class="option"><input type="radio" name="q5" value="c"> <span>c) A self-operating machine</span></label>
+                        <label class="option"><input type="radio" name="q5" value="d"> <span>d) A type of photograph</span></label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">6</span>"Paragraph" refers to:</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q6" value="a"> <span>a) A set of closely related sentences</span></label>
+                        <label class="option"><input type="radio" name="q6" value="b"> <span>b) A section of a book</span></label>
+                        <label class="option"><input type="radio" name="q6" value="c"> <span>c) A formal document</span></label>
+                        <label class="option"><input type="radio" name="q6" value="d"> <span>d) The introduction to a story</span></label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">7</span>What is "calligraphy"?</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q7" value="a"> <span>a) Beautiful handwriting or artistic writing</span></label>
+                        <label class="option"><input type="radio" name="q7" value="b"> <span>b) A type of paint</span></label>
+                        <label class="option"><input type="radio" name="q7" value="c"> <span>c) A musical instrument</span></label>
+                        <label class="option"><input type="radio" name="q7" value="d"> <span>d) A mathematical calculation</span></label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">8</span>What is the root meaning of "graph" and "gram"?</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q8" value="a"> <span>a) To measure or count</span></label>
+                        <label class="option"><input type="radio" name="q8" value="b"> <span>b) To write or record</span></label>
+                        <label class="option"><input type="radio" name="q8" value="c"> <span>c) To move or travel</span></label>
+                        <label class="option"><input type="radio" name="q8" value="d"> <span>d) To build or construct</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION B: FILL IN THE BLANKS -->
+            <div class="section">
+                <h2>Section B: Fill in the Blanks</h2>
+                <p class="section-info">(8 questions × 1 point = 8 points)</p>
+
+                <div class="word-bank">
+                    <strong>Word Bank:</strong>
+                    <div class="words">
+                        <span class="word-tag">autobiography</span>
+                        <span class="word-tag">biography</span>
+                        <span class="word-tag">calligraphy</span>
+                        <span class="word-tag">autograph</span>
+                        <span class="word-tag">paragraph</span>
+                        <span class="word-tag">geography</span>
+                        <span class="word-tag">grammar</span>
+                        <span class="word-tag">graphing</span>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">9</span>The ________ of Thomas Edison describes his incredible life of innovation.</div>
+                    <input type="text" class="text-input" name="q9" placeholder="Enter word from bank">
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">10</span>She studied ________ to understand different countries and cultures.</div>
+                    <input type="text" class="text-input" name="q10" placeholder="Enter word from bank">
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">11</span>The ________ practice of data helps us visualize relationships between numbers.</div>
+                    <input type="text" class="text-input" name="q11" placeholder="Enter word from bank">
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">12</span>Each ________ should contain a main idea and supporting sentences.</div>
+                    <input type="text" class="text-input" name="q12" placeholder="Enter word from bank">
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">13</span>Good ________ is essential for clear and correct writing.</div>
+                    <input type="text" class="text-input" name="q13" placeholder="Enter word from bank">
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">14</span>She asked the famous author for his ________ on her book.</div>
+                    <input type="text" class="text-input" name="q14" placeholder="Enter word from bank">
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">15</span>Her ________ tells her personal story from childhood to adulthood.</div>
+                    <input type="text" class="text-input" name="q15" placeholder="Enter word from bank">
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">16</span>The artist's ________ made her name beautiful on the museum wall.</div>
+                    <input type="text" class="text-input" name="q16" placeholder="Enter word from bank">
+                </div>
+            </div>
+
+            <!-- SECTION C: WORD RELATIONSHIPS -->
+            <div class="section">
+                <h2>Section C: Word Relationships & Analysis</h2>
+                <p class="section-info">(4 questions × 2 points = 8 points)</p>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">17</span>How are "biography" and "autobiography" DIFFERENT?</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q17" value="a"> <span>a) They are the same thing</span></label>
+                        <label class="option"><input type="radio" name="q17" value="b"> <span>b) Biography is written about someone else; autobiography is self-written</span></label>
+                        <label class="option"><input type="radio" name="q17" value="c"> <span>c) Autobiography is about famous people; biography is about ordinary people</span></label>
+                        <label class="option"><input type="radio" name="q17" value="d"> <span>d) Biography is longer than autobiography</span></label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">18</span>"Calligraphy" combines "calli" (beautiful) with "graph" to mean:</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q18" value="a"> <span>a) Quick writing</span></label>
+                        <label class="option"><input type="radio" name="q18" value="b"> <span>b) Beautiful handwriting or writing as art</span></label>
+                        <label class="option"><input type="radio" name="q18" value="c"> <span>c) Writing in different languages</span></label>
+                        <label class="option"><input type="radio" name="q18" value="d"> <span>d) Ancient writing systems</span></label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">19</span>"Paragraph" is to writing as "graph" is to:</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q19" value="a"> <span>a) Numbers</span></label>
+                        <label class="option"><input type="radio" name="q19" value="b"> <span>b) Data visualization</span></label>
+                        <label class="option"><input type="radio" name="q19" value="c"> <span>c) Maps</span></label>
+                        <label class="option"><input type="radio" name="q19" value="d"> <span>d) Books</span></label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">20</span>All of these contain the graph/gram root EXCEPT:</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q20" value="a"> <span>a) Geography</span></label>
+                        <label class="option"><input type="radio" name="q20" value="b"> <span>b) Autograph</span></label>
+                        <label class="option"><input type="radio" name="q20" value="c"> <span>c) Astronomy</span></label>
+                        <label class="option"><input type="radio" name="q20" value="d"> <span>d) Grammar</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PASSAGE FOR SECTION D -->
+            <div class="section">
+                <h2>Reading Passage</h2>
+                <div class="passage">
+                    <p>Lisa was fascinated by Thomas Edison and decided to write a <strong>biography</strong> of his life for her history project. She researched his inventions and created a <strong>graph</strong> showing how his innovations changed over time. The <strong>autograph</strong> she found online was valuable evidence of his real existence.</p>
+                    <p>During her <strong>geography</strong> project, Lisa noticed how Edison's inventions spread across different regions. She studied proper <strong>grammar</strong> to make sure her writing was clear and professional. Each <strong>paragraph</strong> in her report focused on a different period of Edison's life, carefully organized chronologically.</p>
+                    <p>Lisa's teacher was impressed by her work. The <strong>graphing</strong> of Edison's timeline was especially well-done, showing data in a visual way. She even practiced <strong>calligraphy</strong> to write the title of her report beautifully. The project was an excellent example of combining research, writing, and artistic presentation.</p>
+                </div>
+            </div>
+
+            <!-- SECTION D: PASSAGE COMPREHENSION -->
+            <div class="section">
+                <h2>Section D: Passage Comprehension</h2>
+                <p class="section-info">(4 questions × 2 points = 8 points)</p>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">21</span>What was Lisa's main project about?</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q21" value="a"> <span>a) Geography of different countries</span></label>
+                        <label class="option"><input type="radio" name="q21" value="b"> <span>b) Writing a biography of Thomas Edison</span></label>
+                        <label class="option"><input type="radio" name="q21" value="c"> <span>c) Collecting autographs of famous people</span></label>
+                        <label class="option"><input type="radio" name="q21" value="d"> <span>d) Improving her handwriting skills</span></label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">22</span>Why did Lisa create a graph of Edison's innovations?</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q22" value="a"> <span>a) To make her report look prettier</span></label>
+                        <label class="option"><input type="radio" name="q22" value="b"> <span>b) To show how his inventions changed over time visually</span></label>
+                        <label class="option"><input type="radio" name="q22" value="c"> <span>c) To impress her geography teacher</span></label>
+                        <label class="option"><input type="radio" name="q22" value="d"> <span>d) Because it was required for all history projects</span></label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">23</span>What did Lisa use calligraphy for in her project?</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q23" value="a"> <span>a) To write each paragraph</span></label>
+                        <label class="option"><input type="radio" name="q23" value="b"> <span>b) To create graphs and charts</span></label>
+                        <label class="option"><input type="radio" name="q23" value="c"> <span>c) To write the title beautifully</span></label>
+                        <label class="option"><input type="radio" name="q23" value="d"> <span>d) To practice proper grammar</span></label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">24</span>What does the passage suggest about Lisa's project?</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q24" value="a"> <span>a) It was poorly organized and rushed</span></label>
+                        <label class="option"><input type="radio" name="q24" value="b"> <span>b) It combined research, writing, and artistic elements well</span></label>
+                        <label class="option"><input type="radio" name="q24" value="c"> <span>c) It only focused on Edison's early inventions</span></label>
+                        <label class="option"><input type="radio" name="q24" value="d"> <span>d) It was difficult for the teacher to understand</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION E: SHORT ANSWER & APPLICATION -->
+            <div class="section">
+                <h2>Section E: Extended Response (For Review)</h2>
+                <p class="section-info">(3 questions: 2 pts (reviewed), 2 pts (reviewed), 4 pts (reviewed) = 8 points)</p>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">25</span>Explain the difference between "biography" and "autobiography" and give one example of each.</div>
+                    <textarea class="textarea-input" name="q25" placeholder="Write your response here..."></textarea>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">26</span>Describe how using a graph or visual representation of data can improve a written report. Use an example.</div>
+                    <textarea class="textarea-input" name="q26" placeholder="Write your response here..."></textarea>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">27</span>How do geography, biography, and calligraphy each use the graph/gram root? Explain what each one "writes" or "records."</div>
+                    <textarea class="textarea-input" name="q27" placeholder="Write your response here..."></textarea>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+                <button class="reset-btn" onclick="resetQuiz()">Reset Quiz</button>
+            </div>
+        </div>
+
+        <div id="resultsContainer" class="results"></div>
+    </div>
+
+    <script>
+        // Set today's date
+        document.getElementById('studentDate').valueAsDate = new Date();
+
+        const correctAnswers = {
+            q1: 'a', q2: 'a', q3: 'b', q4: 'a', q5: 'a', q6: 'a', q7: 'a', q8: 'b',
+            q9: 'biography', q10: 'geography', q11: 'graphing', q12: 'paragraph',
+            q13: 'grammar', q14: 'autograph', q15: 'autobiography', q16: 'calligraphy',
+            q17: 'b', q18: 'b', q19: 'b', q20: 'c',
+            q21: 'b', q22: 'b', q23: 'c', q24: 'b'
+        };
+
+        function submitQuiz() {
+            const studentName = document.getElementById('studentName').value || 'Student';
+            const studentDate = document.getElementById('studentDate').value || 'Date not entered';
+
+            let score = 0;
+            const answers = {};
+            const userAnswers = {};
+
+            // Collect answers
+            for (let i = 1; i <= 27; i++) {
+                const qName = 'q' + i;
+                const element = document.querySelector(`input[name="${qName}"]:checked`) ||
+                               document.querySelector(`input[name="${qName}"]`);
+
+                if (!element) continue;
+
+                if (element.type === 'radio' || element.type === 'checkbox') {
+                    userAnswers[qName] = element.value;
+                } else if (element.type === 'text') {
+                    userAnswers[qName] = element.value.toLowerCase().trim();
+                }
+            }
+
+            // For extended response
+            for (let i = 25; i <= 27; i++) {
+                const qName = 'q' + i;
+                const textarea = document.querySelector(`textarea[name="${qName}"]`);
+                if (textarea) {
+                    userAnswers[qName] = textarea.value.trim();
+                }
+            }
+
+            // Calculate score
+            // Section A & B (1 point each)
+            for (let i = 1; i <= 16; i++) {
+                const qName = 'q' + i;
+                if (userAnswers[qName] && userAnswers[qName] === correctAnswers[qName]) {
+                    score += 1;
+                }
+            }
+
+            // Section C & D (2 points each)
+            for (let i = 17; i <= 24; i++) {
+                const qName = 'q' + i;
+                if (userAnswers[qName] && userAnswers[qName] === correctAnswers[qName]) {
+                    score += 2;
+                }
+            }
+
+            // Section E: Partial credit for attempted answers
+            if (userAnswers['q25'] && userAnswers['q25'].length > 20) score += 2;
+            if (userAnswers['q26'] && userAnswers['q26'].length > 20) score += 2;
+            if (userAnswers['q27'] && userAnswers['q27'].length > 20) score += 4;
+
+            const percentage = Math.round((score / 60) * 100);
+            let feedback = '';
+            if (percentage >= 90) feedback = 'Excellent work!';
+            else if (percentage >= 80) feedback = 'Great job!';
+            else if (percentage >= 70) feedback = 'Good effort!';
+            else if (percentage >= 60) feedback = 'Keep practicing!';
+            else feedback = 'More study needed!';
+
+            // Build results HTML
+            let resultsHTML = `
+                <div class="score-board">
+                    <h3>Quiz Completed!</h3>
+                    <div class="score-display">${score}/60</div>
+                    <div class="percentage">${percentage}%</div>
+                    <div class="feedback">${feedback}</div>
+                </div>
+                <div class="answer-review">
+                    <h4>Student: ${studentName} | Date: ${studentDate}</h4>
+                </div>
+                <div class="answer-review">
+                    <h4>Answer Review</h4>
+            `;
+
+            // Show answers for objective questions
+            for (let i = 1; i <= 24; i++) {
+                const qName = 'q' + i;
+                const qElement = document.querySelector(`.question-text:contains("${i}")`);
+                let questionText = '';
+
+                // Find question text differently
+                const allQuestions = document.querySelectorAll('.question-text');
+                for (let q of allQuestions) {
+                    if (q.querySelector('.question-number') &&
+                        q.querySelector('.question-number').textContent == i) {
+                        questionText = q.textContent.replace(/^\d+/, '').trim();
+                        break;
+                    }
+                }
+
+                const userAnswer = userAnswers[qName] || 'Not answered';
+                const correctAnswer = correctAnswers[qName];
+                const isCorrect = userAnswer === correctAnswer;
+
+                const answerClass = isCorrect ? 'correct' : 'incorrect';
+                const statusIcon = isCorrect ? '✓' : '✗';
+                const statusText = isCorrect ? 'Correct' : 'Incorrect';
+
+                resultsHTML += `
+                    <div class="answer-item ${answerClass}">
+                        <div class="answer-question">
+                            Q${i}: ${questionText}
+                            <span class="answer-status ${answerClass}">${statusIcon} ${statusText}</span>
+                        </div>
+                        <div class="answer-content">
+                            <strong>Your answer:</strong> ${userAnswer}<br>
+                            ${!isCorrect ? `<strong>Correct answer:</strong> ${correctAnswer}` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Show extended response questions for review
+            for (let i = 25; i <= 27; i++) {
+                const qName = 'q' + i;
+                const userResponse = userAnswers[qName] || 'Not answered';
+
+                resultsHTML += `
+                    <div class="answer-item review-only">
+                        <div class="answer-question">
+                            Q${i}: Extended Response (For Teacher Review)
+                        </div>
+                        <div class="answer-content">
+                            <strong>Your response:</strong><br>
+                            ${userResponse || '<em>No response provided</em>'}
+                        </div>
+                    </div>
+                `;
+            }
+
+            resultsHTML += `
+                </div>
+                <div class="back-to-quiz">
+                    <button onclick="backToQuiz()">Back to Quiz</button>
+                </div>
+            `;
+
+            document.getElementById('resultsContainer').innerHTML = resultsHTML;
+            document.getElementById('resultsContainer').classList.add('show');
+            document.getElementById('quizContainer').style.display = 'none';
+        }
+
+        function resetQuiz() {
+            const confirmReset = confirm('Are you sure you want to reset the quiz? All answers will be cleared.');
+            if (confirmReset) {
+                document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(el => el.checked = false);
+                document.querySelectorAll('input[type="text"]').forEach(el => el.value = '');
+                document.querySelectorAll('textarea').forEach(el => el.value = '');
+                document.getElementById('studentName').focus();
+            }
+        }
+
+        function backToQuiz() {
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('resultsContainer').classList.remove('show');
+            document.getElementById('resultsContainer').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
