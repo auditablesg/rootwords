@@ -1,4 +1,4 @@
-# Lesson 3A: Root 'port' (Carry/Bear) - Quiz
+# Root 'Port' (Carry/Bear) - Quiz
 
 **Name:** ________________________  **Date:** ____________
 

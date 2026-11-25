@@ -1,4 +1,4 @@
-# Lesson 3B: Root 'duct' (Lead/Guide/Draw) - Flashcards
+# Root 'Duct' (Lead/Guide/Draw) - Flashcards
 
 ## Card 1: CONDUCT
 **Front:** Conduct (verb/noun)

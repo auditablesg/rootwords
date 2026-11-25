@@ -1,4 +1,4 @@
-# Lesson 3C: Root 'cess' & 'cede' (Go/Yield/Withdraw) - Quiz
+# Root 'Cess' & 'Cede' (Go/Yield/Withdraw) - Quiz
 
 **Name:** ________________________  **Date:** ____________
 

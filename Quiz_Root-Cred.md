@@ -1,4 +1,4 @@
-# Lesson 4A: Root 'cred' (Trust/Believe) - Quiz
+# Root 'Cred' (Trust/Believe) - Quiz
 
 **Name:** ________________________  **Date:** ____________
 

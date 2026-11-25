@@ -1,4 +1,4 @@
-# Lesson 4A: Root 'cred' (Trust/Believe) - Flashcards
+# Root 'Cred' (Trust/Believe) - Flashcards
 
 ## Card 1: CREDIT
 **Front:** Credit (noun/verb)

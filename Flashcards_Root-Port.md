@@ -1,4 +1,4 @@
-# Lesson 3A: Root 'port' (Carry/Bear) - Flashcards
+# Root 'Port' (Carry/Bear) - Flashcards
 
 ## Card 1: TRANSPORT
 **Front:** Transport (noun/verb)

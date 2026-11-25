@@ -1,4 +1,4 @@
-# Lesson 3B: Root 'duct' (Lead/Guide/Draw) - Quiz
+# Root 'Duct' (Lead/Guide/Draw) - Quiz
 
 **Name:** ________________________  **Date:** ____________
 

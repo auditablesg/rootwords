@@ -1,4 +1,4 @@
-# Lesson 4C: Root 'graph'/'gram' (Write/Record) - Quiz
+# Root 'graph'/'gram' (Write/Record) - Quiz
 
 **Name:** ________________________  **Date:** ____________
 

@@ -1,4 +1,4 @@
-# Lesson 4B: Root 'chron' (Time) - Quiz
+# Root 'Chron' (Time) - Quiz
 
 **Name:** ________________________  **Date:** ____________
 

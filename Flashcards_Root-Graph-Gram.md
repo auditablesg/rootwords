@@ -1,4 +1,4 @@
-# Lesson 4C: Root 'graph'/'gram' (Write/Record) - Flashcards
+# Root 'Graph'/'Gram' (Write/Record) - Flashcards
 
 ## Card 1: GRAPH
 **Front:** Graph (noun)
