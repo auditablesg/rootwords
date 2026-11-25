@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 3C: Root 'cess' & 'cede' - Complete Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #229954;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .header-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .header-info label {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-info label span {
+            font-weight: bold;
+            color: #229954;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .header-info input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .word-bank {
+            background: #e8f5e9;
+            border: 2px solid #229954;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .word-bank strong {
+            color: #229954;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .word-bank p {
+            color: #333;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .question {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-left: 4px solid #229954;
+            border-radius: 8px;
+        }
+
+        .question-text {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option:hover {
+            background: #f0f0f0;
+            border-color: #229954;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .option label {
+            margin: 0;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(34, 153, 84, 0.4);
+        }
+
+        .btn-reset {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-reset:hover {
+            background: #d0d0d0;
+        }
+
+        .results {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border: 2px solid #229954;
+            border-radius: 10px;
+        }
+
+        .results.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .results h2 {
+            color: #229954;
+            margin-bottom: 15px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .score-display {
+            font-size: 60px;
+            font-weight: bold;
+            color: #229954;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .score-percent {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .feedback {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.8;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .feedback p {
+            margin-bottom: 10px;
+        }
+
+        .answer-key {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border: 1px solid #ddd;
+        }
+
+        .answer-key h3 {
+            color: #229954;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #229954;
+            padding-bottom: 10px;
+        }
+
+        .answer-item {
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            border-left: 4px solid #229954;
+        }
+
+        .answer-item.correct {
+            background: #e8f5e9;
+            border-left-color: #27ae60;
+        }
+
+        .answer-item.incorrect {
+            background: #ffebee;
+            border-left-color: #e74c3c;
+        }
+
+        .answer-item .question-num {
+            font-weight: bold;
+            color: #229954;
+            margin-bottom: 5px;
+        }
+
+        .answer-item .correct-label {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .answer-item .incorrect-label {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .student-answer {
+            margin-top: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .correct-answer {
+            margin-top: 5px;
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .header-info {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Lesson 3C: Root 'cess' & 'cede' - Complete Quiz</h1>
+        <p class="subtitle">Latin: go, yield, withdraw, step</p>
+
+        <form id="quizForm">
+            <div class="header-info">
+                <label><span>📛 Name:</span><input type="text" id="studentName" placeholder="Enter your name"></label>
+                <label><span>📅 Date:</span><input type="date" id="studentDate"></label>
+            </div>
+
+            <div class="section">
+                <div class="section-title">SECTION A: Multiple Choice (10 points)</div>
+                <div class="question"><div class="question-text">1. What do "cess" and "cede" mean?</div><div class="options"><div class="option"><input type="radio" name="q1" value="a"><label>Build and create</label></div><div class="option"><input type="radio" name="q1" value="b"><label>Go, yield, withdraw, step</label></div><div class="option"><input type="radio" name="q1" value="c"><label>Make and produce</label></div><div class="option"><input type="radio" name="q1" value="d"><label>Lead and guide</label></div></div></div>
+                <div class="question"><div class="question-text">2. Which word means "a series of steps to achieve an end"?</div><div class="options"><div class="option"><input type="radio" name="q2" value="a"><label>Success</label></div><div class="option"><input type="radio" name="q2" value="b"><label>Recess</label></div><div class="option"><input type="radio" name="q2" value="c"><label>Process</label></div><div class="option"><input type="radio" name="q2" value="d"><label>Accessible</label></div></div></div>
+                <div class="question"><div class="question-text">3. What is "recess"?</div><div class="options"><div class="option"><input type="radio" name="q3" value="a"><label>The back part of a classroom</label></div><div class="option"><input type="radio" name="q3" value="b"><label>A formal agreement</label></div><div class="option"><input type="radio" name="q3" value="c"><label>A brief period of rest between classes</label></div><div class="option"><input type="radio" name="q3" value="d"><label>A reduction in time</label></div></div></div>
+                <div class="question"><div class="question-text">4. Which word means "able to be easily reached"?</div><div class="options"><div class="option"><input type="radio" name="q4" value="a"><label>Recessed</label></div><div class="option"><input type="radio" name="q4" value="b"><label>Accessible</label></div><div class="option"><input type="radio" name="q4" value="c"><label>Proceeding</label></div><div class="option"><input type="radio" name="q4" value="d"><label>Succeeded</label></div></div></div>
+                <div class="question"><div class="question-text">5. What does "exceed" mean?</div><div class="options"><div class="option"><input type="radio" name="q5" value="a"><label>To complete successfully</label></div><div class="option"><input type="radio" name="q5" value="b"><label>To go beyond what is allowed</label></div><div class="option"><input type="radio" name="q5" value="c"><label>To withdraw from a group</label></div><div class="option"><input type="radio" name="q5" value="d"><label>To accept responsibility</label></div></div></div>
+                <div class="question"><div class="question-text">6. Which word means "to begin or continue a course of action"?</div><div class="options"><div class="option"><input type="radio" name="q6" value="a"><label>Precede</label></div><div class="option"><input type="radio" name="q6" value="b"><label>Concede</label></div><div class="option"><input type="radio" name="q6" value="c"><label>Proceed</label></div><div class="option"><input type="radio" name="q6" value="d"><label>Secede</label></div></div></div>
+                <div class="question"><div class="question-text">7. What does "concede" mean?</div><div class="options"><div class="option"><input type="radio" name="q7" value="a"><label>To form an opinion</label></div><div class="option"><input type="radio" name="q7" value="b"><label>To admit defeat or yield reluctantly</label></div><div class="option"><input type="radio" name="q7" value="c"><label>To go before something</label></div><div class="option"><input type="radio" name="q7" value="d"><label>To formally withdraw</label></div></div></div>
+                <div class="question"><div class="question-text">8. A "procession" is:</div><div class="options"><div class="option"><input type="radio" name="q8" value="a"><label>A formal agreement</label></div><div class="option"><input type="radio" name="q8" value="b"><label>A list of actions</label></div><div class="option"><input type="radio" name="q8" value="c"><label>A group walking in an orderly line</label></div><div class="option"><input type="radio" name="q8" value="d"><label>A brief period of rest</label></div></div></div>
+                <div class="question"><div class="question-text">9. Which word means "to come before in time or order"?</div><div class="options"><div class="option"><input type="radio" name="q9" value="a"><label>Succeed</label></div><div class="option"><input type="radio" name="q9" value="b"><label>Precede</label></div><div class="option"><input type="radio" name="q9" value="c"><label>Accede</label></div><div class="option"><input type="radio" name="q9" value="d"><label>Recede</label></div></div></div>
+                <div class="question"><div class="question-text">10. What is a "successor"?</div><div class="options"><div class="option"><input type="radio" name="q10" value="a"><label>A person who precedes another</label></div><div class="option"><input type="radio" name="q10" value="b"><label>A person who succeeds another in a position</label></div><div class="option"><input type="radio" name="q10" value="c"><label>A person who withdraws from a group</label></div><div class="option"><input type="radio" name="q10" value="d"><label>A person who processes information</label></div></div></div>
+            </div>
+
+            <div class="section">
+                <div class="word-bank"><strong>Word Bank:</strong><p>process, success, successful, accessible, recess, exceed, proceed, concede, precede, successor, procession, accession</p></div>
+                <div class="section-title">SECTION B: Fill in the Blank (10 points)</div>
+                <div class="question"><div class="question-text">11. Writing an essay is a step-by-step __________ that requires planning.</div><input type="text" class="text-input" name="q11"></div>
+                <div class="question"><div class="question-text">12. Hard work and daily revision are the keys to academic __________.</div><input type="text" class="text-input" name="q12"></div>
+                <div class="question"><div class="question-text">13. The __________ candidates will be notified of their exam results.</div><input type="text" class="text-input" name="q13"></div>
+                <div class="question"><div class="question-text">14. Ramps and lifts make school buildings fully __________ for students with mobility needs.</div><input type="text" class="text-input" name="q14"></div>
+                <div class="question"><div class="question-text">15. Students eagerly play games during short __________.</div><input type="text" class="text-input" name="q15"></div>
+                <div class="question"><div class="question-text">16. The national day parade featured a colorful __________ of marching bands.</div><input type="text" class="text-input" name="q16"></div>
+                <div class="question"><div class="question-text">17. Students should strive not to __________ the word limit in writing.</div><input type="text" class="text-input" name="q17"></div>
+                <div class="question"><div class="question-text">18. After checking safety rules, the debate team can __________ with arguments.</div><input type="text" class="text-input" name="q18"></div>
+                <div class="question"><div class="question-text">19. It takes maturity to __________ when you are wrong in an argument.</div><input type="text" class="text-input" name="q19"></div>
+                <div class="question"><div class="question-text">20. A detailed introduction must __________ the body paragraphs of an essay.</div><input type="text" class="text-input" name="q20"></div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">SECTION C: Prefix & Suffix (5 points)</div>
+                <div class="question"><div class="question-text">21. (pro- + cess) A series of steps toward a goal: __________</div><input type="text" class="text-input" name="q21"></div>
+                <div class="question"><div class="question-text">22. (ad- + cess + -ible) Easy to reach: __________</div><input type="text" class="text-input" name="q22"></div>
+                <div class="question"><div class="question-text">23. (ex- + ceed) To go beyond: __________</div><input type="text" class="text-input" name="q23"></div>
+                <div class="question"><div class="question-text">24. (pro- + ceed) To move forward: __________</div><input type="text" class="text-input" name="q24"></div>
+                <div class="question"><div class="question-text">25. (con- + cede) To admit defeat: __________</div><input type="text" class="text-input" name="q25"></div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">SECTION D & E: Comprehension & Short Answer (10 points)</div>
+
+                <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #229954;">
+                    <strong style="color: #229954; display: block; margin-bottom: 10px;">📖 Read the following passage:</strong>
+                    <p style="color: #333; line-height: 1.8;">
+                        The AEIS exam is a challenging <strong>process</strong> that requires months of preparation. To achieve <strong>success</strong>, students must follow a careful plan. First, they should understand that time management will not <strong>exceed</strong> their capabilities; instead, it will help them <strong>proceed</strong> with confidence. Teachers encourage students to ask questions about any topic they don't understand—accessibility to help is important. The revision <strong>process</strong> should <strong>precede</strong> the actual exam by several weeks. Students who prepare well will succeed and become the successor generation of students in their desired schools.
+                    </p>
+                </div>
+
+                <div class="question"><div class="question-text">26. How is the AEIS exam described in the passage?</div><textarea class="text-input" name="q26"></textarea></div>
+                <div class="question"><div class="question-text">27. What must students do to achieve success in the AEIS exam?</div><textarea class="text-input" name="q27"></textarea></div>
+                <div class="question"><div class="question-text">28. According to the passage, what should precede the actual exam?</div><textarea class="text-input" name="q28"></textarea></div>
+                <div class="question"><div class="question-text">29. Find a word in the passage that means "to go beyond."</div><textarea class="text-input" name="q29"></textarea></div>
+                <div class="question"><div class="question-text">30. Why should students have accessibility to help?</div><textarea class="text-input" name="q30"></textarea></div>
+                <div class="question"><div class="question-text">31. Create a sentence using "proceed." Show you understand the meaning.</div><textarea class="text-input" name="q31"></textarea></div>
+                <div class="question"><div class="question-text">32. Explain the difference between "precede" and "proceed."</div><textarea class="text-input" name="q32"></textarea></div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn-submit">✓ Submit Quiz</button>
+                <button type="reset" class="btn-reset">↻ Reset</button>
+            </div>
+
+            <div class="results" id="results">
+                <h2>📊 Quiz Complete!</h2>
+                <div class="score-display" id="scoreDisplay">0</div>
+                <div class="score-percent" id="scorePercent">0%</div>
+                <div class="feedback" id="feedbackText"></div>
+                <div class="answer-key">
+                    <h3>📋 Answer Review</h3>
+                    <div id="answerReview"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('studentDate').valueAsDate = new Date();
+
+        const mcAnswers = {
+            q1: {correct: 'b', text: 'Go, yield, withdraw, step'},
+            q2: {correct: 'c', text: 'Process'},
+            q3: {correct: 'c', text: 'A brief period of rest between classes'},
+            q4: {correct: 'b', text: 'Accessible'},
+            q5: {correct: 'b', text: 'To go beyond what is allowed'},
+            q6: {correct: 'c', text: 'Proceed'},
+            q7: {correct: 'b', text: 'To admit defeat or yield reluctantly'},
+            q8: {correct: 'c', text: 'A group walking in an orderly line'},
+            q9: {correct: 'b', text: 'Precede'},
+            q10: {correct: 'b', text: 'A person who succeeds another in a position'}
+        };
+
+        const blankAnswers = {q11: ['process'], q12: ['success'], q13: ['successful'], q14: ['accessible'], q15: ['recess'], q16: ['procession'], q17: ['exceed'], q18: ['proceed'], q19: ['concede'], q20: ['precede']};
+        const prefixAnswers = {q21: ['process'], q22: ['accessible'], q23: ['exceed'], q24: ['proceed'], q25: ['concede']};
+
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateScore();
+        });
+
+        function calculateScore() {
+            let score = 0, answers = [];
+
+            for (let i = 1; i <= 10; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                const isCorrect = selected && selected.value === mcAnswers[`q${i}`].correct;
+                if (isCorrect) score += 1;
+                answers.push({
+                    question: i, type: 'mc', isCorrect,
+                    correct: mcAnswers[`q${i}`].text,
+                    student: selected ? selected.parentElement.textContent.trim() : '(No answer)'
+                });
+            }
+
+            for (let i = 11; i <= 20; i++) {
+                const input = document.querySelector(`input[name="q${i}"]`);
+                const userAnswer = input.value.toLowerCase().trim();
+                const isCorrect = (blankAnswers[`q${i}`] || []).some(c => userAnswer === c.toLowerCase());
+                if (isCorrect) score += 1;
+                answers.push({
+                    question: i, type: 'blank', isCorrect,
+                    correct: (blankAnswers[`q${i}`] || [''])[0],
+                    student: userAnswer || '(No answer)'
+                });
+            }
+
+            for (let i = 21; i <= 25; i++) {
+                const input = document.querySelector(`input[name="q${i}"]`);
+                const userAnswer = input.value.toLowerCase().trim();
+                const isCorrect = (prefixAnswers[`q${i}`] || []).some(c => userAnswer === c.toLowerCase());
+                if (isCorrect) score += 2;
+                answers.push({
+                    question: i, type: 'prefix', isCorrect,
+                    correct: (prefixAnswers[`q${i}`] || [''])[0],
+                    student: userAnswer || '(No answer)'
+                });
+            }
+
+            for (let i = 26; i <= 32; i++) {
+                const textarea = document.querySelector(`textarea[name="q${i}"]`);
+                const userAnswer = textarea.value.trim();
+                if (userAnswer.length > 20) score += 1.5;
+                else if (userAnswer.length > 0) score += 0.75;
+                answers.push({question: i, type: 'short', student: userAnswer || '(No answer)'});
+            }
+
+            const percentage = Math.round((score / 60) * 100);
+            document.getElementById('scoreDisplay').textContent = score.toFixed(1) + ' / 60';
+            document.getElementById('scorePercent').textContent = percentage + '%';
+
+            let feedback = percentage >= 90 ? '🌟 Excellent!' : percentage >= 80 ? '👏 Great job!' : percentage >= 70 ? '📚 Good work!' : percentage >= 60 ? '⚠️ Need more practice' : '❌ Study more';
+            document.getElementById('feedbackText').innerHTML = feedback;
+
+            let reviewHTML = '';
+            answers.forEach(ans => {
+                if (ans.type === 'mc' || ans.type === 'blank' || ans.type === 'prefix') {
+                    reviewHTML += `<div class="answer-item ${ans.isCorrect ? 'correct' : 'incorrect'}"><div class="question-num">Q${ans.question} ${ans.isCorrect ? '<span class="correct-label">✓ CORRECT</span>' : '<span class="incorrect-label">✗ INCORRECT</span>'}</div><div class="correct-answer">Correct: ${ans.correct}</div><div class="student-answer">Your Answer: ${ans.student}</div></div>`;
+                } else {
+                    reviewHTML += `<div class="answer-item"><div class="question-num">Q${ans.question}</div><div class="student-answer">Your Answer: ${ans.student}</div></div>`;
+                }
+            });
+
+            document.getElementById('answerReview').innerHTML = reviewHTML;
+            document.getElementById('results').classList.add('show');
+            setTimeout(() => document.getElementById('results').scrollIntoView({ behavior: 'smooth' }), 100);
+        }
+    </script>
+</body>
+</html>

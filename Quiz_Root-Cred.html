@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 4A: Root 'cred' - Complete Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .header-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .header-info label {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-info label span {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .header-info input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .word-bank {
+            background: #f0f7ff;
+            border: 2px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .word-bank strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .word-bank p {
+            color: #333;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .question {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+        }
+
+        .question-text {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option:hover {
+            background: #f0f0f0;
+            border-color: #667eea;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .option label {
+            margin: 0;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-reset {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-reset:hover {
+            background: #d0d0d0;
+        }
+
+        .results {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f0f7ff 0%, #f5e6ff 100%);
+            border: 2px solid #667eea;
+            border-radius: 10px;
+        }
+
+        .results.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .results h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .score-display {
+            font-size: 60px;
+            font-weight: bold;
+            color: #667eea;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .score-percent {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .feedback {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.8;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .feedback p {
+            margin-bottom: 10px;
+        }
+
+        .answer-key {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border: 1px solid #ddd;
+        }
+
+        .answer-key h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .answer-item {
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+
+        .answer-item.correct {
+            background: #e8f5e9;
+            border-left-color: #27ae60;
+        }
+
+        .answer-item.incorrect {
+            background: #ffebee;
+            border-left-color: #e74c3c;
+        }
+
+        .answer-item .question-num {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .answer-item .correct-label {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .answer-item .incorrect-label {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .student-answer {
+            margin-top: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .correct-answer {
+            margin-top: 5px;
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .header-info {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .answer-key {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Lesson 4A: Root 'cred' (Trust/Believe) - Complete Quiz</h1>
+        <p class="subtitle">Latin: trust, believe, faith</p>
+
+        <form id="quizForm">
+            <div class="header-info">
+                <label>
+                    <span>📛 Name:</span>
+                    <input type="text" id="studentName" placeholder="Enter your name">
+                </label>
+                <label>
+                    <span>📅 Date:</span>
+                    <input type="date" id="studentDate">
+                </label>
+            </div>
+
+            <!-- SECTION A: Multiple Choice -->
+            <div class="section">
+                <div class="section-title">SECTION A: Multiple Choice (10 points)</div>
+
+                <div class="question">
+                    <div class="question-text">1. What does the Latin root "cred" mean?</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="q1" value="a"><label>To carry or bear</label></div>
+                        <div class="option"><input type="radio" name="q1" value="b"><label>To trust, believe, or have faith</label></div>
+                        <div class="option"><input type="radio" name="q1" value="c"><label>To write or draw</label></div>
+                        <div class="option"><input type="radio" name="q1" value="d"><label>To speak or say</label></div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">2. Which word means "to prove something is not true or discredit someone's reputation"?</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="q2" value="a"><label>Accreditation</label></div>
+                        <div class="option"><input type="radio" name="q2" value="b"><label>Discredit</label></div>
+                        <div class="option"><input type="radio" name="q2" value="c"><label>Credible</label></div>
+                        <div class="option"><input type="radio" name="q2" value="d"><label>Credential</label></div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">3. What is a "credential"?</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="q3" value="a"><label>A belief or opinion</label></div>
+                        <div class="option"><input type="radio" name="q3" value="b"><label>A document or proof showing someone's qualifications or authority</label></div>
+                        <div class="option"><input type="radio" name="q3" value="c"><label>A statement that is not believed</label></div>
+                        <div class="option"><input type="radio" name="q3" value="d"><label>An old or outdated belief</label></div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">4. If someone is "incredulous," they are:</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="q4" value="a"><label>Very believing and trusting</label></div>
+                        <div class="option"><input type="radio" name="q4" value="b"><label>Not able to be believed or false</label></div>
+                        <div class="option"><input type="radio" name="q4" value="c"><label>Unwilling to believe something; doubting</label></div>
+                        <div class="option"><input type="radio" name="q4" value="d"><label>Having lost their faith</label></div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">5. What does "credibility" mean?</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="q5" value="a"><label>The quality of being believable or trustworthy</label></div>
+                        <div class="option"><input type="radio" name="q5" value="b"><label>The quality of being incredible</label></div>
+                        <div class="option"><input type="radio" name="q5" value="c"><label>The act of giving credit</label></div>
+                        <div class="option"><input type="radio" name="q5" value="d"><label>A formal certificate</label></div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">6. If something is "credible," it is:</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="q6" value="a"><label>Worthy of credit or belief; believable</label></div>
+                        <div class="option"><input type="radio" name="q6" value="b"><label>Not worth believing</label></div>
+                        <div class="option"><input type="radio" name="q6" value="c"><label>Requiring proof or documentation</label></div>
+                        <div class="option"><input type="radio" name="q6" value="d"><label>Lacking in faith or trust</label></div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">7. What does "accredit" mean?</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="q7" value="a"><label>To officially recognize as meeting standards</label></div>
+                        <div class="option"><input type="radio" name="q7" value="b"><label>To destroy someone's reputation</label></div>
+                        <div class="option"><input type="radio" name="q7" value="c"><label>To give money to someone</label></div>
+                        <div class="option"><input type="radio" name="q7" value="d"><label>To refuse to believe something</label></div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">8. Someone with "credulity" is:</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="q8" value="a"><label>Very wise and careful in what they believe</label></div>
+                        <div class="option"><input type="radio" name="q8" value="b"><label>Too willing to believe things without evidence; gullible</label></div>
+                        <div class="option"><input type="radio" name="q8" value="c"><label>Refusing to trust anyone</label></div>
+                        <div class="option"><input type="radio" name="q8" value="d"><label>Having official credentials</label></div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">9. What is the prefix in "discredit"?</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="q9" value="a"><label>de-</label></div>
+                        <div class="option"><input type="radio" name="q9" value="b"><label>dis-</label></div>
+                        <div class="option"><input type="radio" name="q9" value="c"><label>un-</label></div>
+                        <div class="option"><input type="radio" name="q9" value="d"><label>re-</label></div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">10. Which word is NOT related to the root "cred"?</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="q10" value="a"><label>Accredit</label></div>
+                        <div class="option"><input type="radio" name="q10" value="b"><label>Credential</label></div>
+                        <div class="option"><input type="radio" name="q10" value="c"><label>Accident</label></div>
+                        <div class="option"><input type="radio" name="q10" value="d"><label>Incredulous</label></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION B: Fill in the Blank -->
+            <div class="section">
+                <div class="word-bank">
+                    <strong>Word Bank for Section B:</strong>
+                    <p>credible, credential, discredit, credulity, credibility, incredulous, credit, accredit, incredible, credulous</p>
+                </div>
+
+                <div class="section-title">SECTION B: Fill in the Blank (10 points)</div>
+
+                <div class="question">
+                    <div class="question-text">11. The athlete was __________ when she heard the false rumors about her performance.</div>
+                    <input type="text" class="text-input" name="q11">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">12. A journalist must maintain high __________ to keep readers' trust.</div>
+                    <input type="text" class="text-input" name="q12">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">13. The university will __________ schools that meet their educational standards.</div>
+                    <input type="text" class="text-input" name="q13">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">14. The scandal will __________ the politician's career and reputation.</div>
+                    <input type="text" class="text-input" name="q14">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">15. You must show your __________ before entering the secure building.</div>
+                    <input type="text" class="text-input" name="q15">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">16. His __________ made him easy prey for con artists and scams.</div>
+                    <input type="text" class="text-input" name="q16">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">17. The witness gave a __________ account of what happened at the crime scene.</div>
+                    <input type="text" class="text-input" name="q17">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">18. The __________ story of a floating island seemed impossible at first.</div>
+                    <input type="text" class="text-input" name="q18">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">19. We should give __________ to those who have proven themselves trustworthy.</div>
+                    <input type="text" class="text-input" name="q19">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">20. A __________ person accepts everything they are told without questioning.</div>
+                    <input type="text" class="text-input" name="q20">
+                </div>
+            </div>
+
+            <!-- SECTION C: Prefix & Suffix -->
+            <div class="section">
+                <div class="section-title">SECTION C: Prefix & Suffix Work (5 points)</div>
+
+                <div class="question">
+                    <div class="question-text">21. (dis- + credit) To damage someone's reputation or trust: __________</div>
+                    <input type="text" class="text-input" name="q21">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">22. (in- + credulous) Unable or unwilling to believe: __________</div>
+                    <input type="text" class="text-input" name="q22">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">23. (cred + -ible) Worthy of belief or trust: __________</div>
+                    <input type="text" class="text-input" name="q23">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">24. (cred + -ity) The quality of being believable: __________</div>
+                    <input type="text" class="text-input" name="q24">
+                </div>
+
+                <div class="question">
+                    <div class="question-text">25. (ac- + credit) To officially recognize or certify: __________</div>
+                    <input type="text" class="text-input" name="q25">
+                </div>
+            </div>
+
+            <!-- SECTION D: Comprehension -->
+            <div class="section">
+                <div class="section-title">SECTION D: Comprehension & Short Answer (5 points)</div>
+
+                <div style="background: #f0f7ff; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #667eea;">
+                    <strong style="color: #667eea; display: block; margin-bottom: 10px;">📖 Read the following passage:</strong>
+                    <p style="color: #333; line-height: 1.8;">
+                        A celebrity was caught with a fake <strong>credential</strong> card from a university that doesn't exist. This news will <strong>discredit</strong> him completely, and no one will trust his claims anymore. His friends are <strong>incredulous</strong>—they can't believe he would do such a dishonest thing. His <strong>credulity</strong> had always been his downfall, as he believed everything people told him without checking facts. Now everyone questions his <strong>credibility</strong>.
+                    </p>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">26. What type of credential card did the celebrity have, and where was it supposedly from?</div>
+                    <textarea class="text-input" name="q26" placeholder="Write your answer..."></textarea>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">27. Why will this scandal affect the celebrity's future reputation?</div>
+                    <textarea class="text-input" name="q27" placeholder="Write your answer..."></textarea>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">28. What does the passage say about the celebrity's credulity? How was this a problem?</div>
+                    <textarea class="text-input" name="q28" placeholder="Write your answer..."></textarea>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">29. What is the relationship between the words "credible" and "credibility"?</div>
+                    <textarea class="text-input" name="q29" placeholder="Write your answer..."></textarea>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">30. Explain what the passage means by saying the celebrity's friends are "incredulous." (Use complete sentence)</div>
+                    <textarea class="text-input" name="q30" placeholder="Write your answer..."></textarea>
+                </div>
+            </div>
+
+            <!-- SECTION E: Application -->
+            <div class="section">
+                <div class="section-title">SECTION E: Application & Creative Thinking (5 points)</div>
+
+                <div class="question">
+                    <div class="question-text">31. Create your own sentence using the word "credible." Show that you understand the meaning.</div>
+                    <textarea class="text-input" name="q31" placeholder="Write your sentence..."></textarea>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">32. Explain why "credulity" and "credibility" have opposite meanings, even though they both come from the root "cred."</div>
+                    <textarea class="text-input" name="q32" placeholder="Write your explanation..."></textarea>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn-submit">✓ Submit Quiz</button>
+                <button type="reset" class="btn-reset">↻ Reset</button>
+            </div>
+
+            <div class="results" id="results">
+                <h2>📊 Quiz Complete!</h2>
+                <div class="score-display" id="scoreDisplay">0</div>
+                <div class="score-percent" id="scorePercent">0%</div>
+                <div class="feedback" id="feedbackText"></div>
+
+                <div class="answer-key">
+                    <h3>📋 Answer Review</h3>
+                    <div id="answerReview"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('studentDate').valueAsDate = new Date();
+
+        const mcAnswers = {
+            q1: {correct: 'b', text: 'To trust, believe, or have faith'},
+            q2: {correct: 'b', text: 'Discredit'},
+            q3: {correct: 'b', text: 'A document or proof showing someone\'s qualifications or authority'},
+            q4: {correct: 'c', text: 'Unwilling to believe something; doubting'},
+            q5: {correct: 'a', text: 'The quality of being believable or trustworthy'},
+            q6: {correct: 'a', text: 'Worthy of credit or belief; believable'},
+            q7: {correct: 'a', text: 'To officially recognize as meeting standards'},
+            q8: {correct: 'b', text: 'Too willing to believe things without evidence; gullible'},
+            q9: {correct: 'b', text: 'dis-'},
+            q10: {correct: 'c', text: 'Accident'}
+        };
+
+        const blankAnswers = {
+            q11: ['incredulous'],
+            q12: ['credibility'],
+            q13: ['accredit'],
+            q14: ['discredit'],
+            q15: ['credential'],
+            q16: ['credulity'],
+            q17: ['credible'],
+            q18: ['incredible'],
+            q19: ['credit'],
+            q20: ['credulous']
+        };
+
+        const prefixAnswers = {
+            q21: ['discredit'],
+            q22: ['incredulous'],
+            q23: ['credible'],
+            q24: ['credibility'],
+            q25: ['accredit']
+        };
+
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateScore();
+        });
+
+        function calculateScore() {
+            let score = 0;
+            let totalPoints = 60;
+            let answers = [];
+
+            // SECTION A: Multiple Choice
+            for (let i = 1; i <= 10; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                const isCorrect = selected && selected.value === mcAnswers[`q${i}`].correct;
+
+                if (isCorrect) score += 1;
+
+                answers.push({
+                    question: i,
+                    type: 'mc',
+                    isCorrect: isCorrect,
+                    correct: mcAnswers[`q${i}`].text,
+                    student: selected ? selected.parentElement.textContent.trim() : '(No answer selected)'
+                });
+            }
+
+            // SECTION B: Fill in the Blank
+            for (let i = 11; i <= 20; i++) {
+                const input = document.querySelector(`input[name="q${i}"]`);
+                const userAnswer = input.value.toLowerCase().trim();
+                let isCorrect = false;
+
+                for (let correct of blankAnswers[`q${i}`]) {
+                    if (userAnswer === correct.toLowerCase()) {
+                        isCorrect = true;
+                        break;
+                    }
+                }
+
+                if (isCorrect) score += 1;
+
+                answers.push({
+                    question: i,
+                    type: 'blank',
+                    isCorrect: isCorrect,
+                    correct: blankAnswers[`q${i}`][0],
+                    student: userAnswer || '(No answer)'
+                });
+            }
+
+            // SECTION C: Prefix & Suffix
+            for (let i = 21; i <= 25; i++) {
+                const input = document.querySelector(`input[name="q${i}"]`);
+                const userAnswer = input.value.toLowerCase().trim();
+                let isCorrect = false;
+
+                for (let correct of prefixAnswers[`q${i}`]) {
+                    if (userAnswer === correct.toLowerCase()) {
+                        isCorrect = true;
+                        break;
+                    }
+                }
+
+                if (isCorrect) score += 2;
+
+                answers.push({
+                    question: i,
+                    type: 'prefix',
+                    isCorrect: isCorrect,
+                    correct: prefixAnswers[`q${i}`][0],
+                    student: userAnswer || '(No answer)'
+                });
+            }
+
+            // SECTION D & E: Short answers (shown but not auto-scored)
+            for (let i = 26; i <= 32; i++) {
+                const textarea = document.querySelector(`textarea[name="q${i}"]`);
+                const userAnswer = textarea.value.trim();
+
+                if (i <= 30) {
+                    if (userAnswer.length > 20) score += 3;
+                    else if (userAnswer.length > 0) score += 1.5;
+                } else {
+                    if (userAnswer.length > 30) score += 5;
+                    else if (userAnswer.length > 0) score += 2.5;
+                }
+
+                answers.push({
+                    question: i,
+                    type: 'short',
+                    student: userAnswer || '(No answer)'
+                });
+            }
+
+            displayResults(score, totalPoints, answers);
+        }
+
+        function displayResults(score, totalPoints, answers) {
+            const percentage = Math.round((score / totalPoints) * 100);
+            document.getElementById('scoreDisplay').textContent = score.toFixed(1) + ' / ' + totalPoints;
+            document.getElementById('scorePercent').textContent = percentage + '%';
+
+            let feedback = '';
+            if (percentage >= 90) {
+                feedback = '🌟 Excellent! You have mastered this lesson!';
+            } else if (percentage >= 80) {
+                feedback = '👏 Great job! You have a strong understanding of these vocabulary words.';
+            } else if (percentage >= 70) {
+                feedback = '📚 Good work! Review the words you missed to strengthen your knowledge.';
+            } else if (percentage >= 60) {
+                feedback = '⚠️ You need more practice. Go back to the flashcards and review the vocabulary.';
+            } else {
+                feedback = '❌ Please study the vocabulary more thoroughly before taking the quiz again.';
+            }
+
+            document.getElementById('feedbackText').innerHTML = feedback;
+
+            // Build answer review
+            let reviewHTML = '';
+            answers.forEach(ans => {
+                if (ans.type === 'mc') {
+                    reviewHTML += `
+                        <div class="answer-item ${ans.isCorrect ? 'correct' : 'incorrect'}">
+                            <div class="question-num">Q${ans.question} ${ans.isCorrect ? '<span class="correct-label">✓ CORRECT</span>' : '<span class="incorrect-label">✗ INCORRECT</span>'}</div>
+                            <div class="correct-answer">Correct Answer: ${ans.correct}</div>
+                            <div class="student-answer">Your Answer: ${ans.student}</div>
+                        </div>
+                    `;
+                } else if (ans.type === 'blank' || ans.type === 'prefix') {
+                    reviewHTML += `
+                        <div class="answer-item ${ans.isCorrect ? 'correct' : 'incorrect'}">
+                            <div class="question-num">Q${ans.question} ${ans.isCorrect ? '<span class="correct-label">✓ CORRECT</span>' : '<span class="incorrect-label">✗ INCORRECT</span>'}</div>
+                            <div class="correct-answer">Correct Answer: ${ans.correct}</div>
+                            <div class="student-answer">Your Answer: ${ans.student}</div>
+                        </div>
+                    `;
+                } else {
+                    reviewHTML += `
+                        <div class="answer-item">
+                            <div class="question-num">Q${ans.question}</div>
+                            <div class="student-answer">Your Answer: ${ans.student}</div>
+                        </div>
+                    `;
+                }
+            });
+
+            document.getElementById('answerReview').innerHTML = reviewHTML;
+            document.getElementById('results').classList.add('show');
+
+            setTimeout(() => {
+                document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+    </script>
+</body>
+</html>

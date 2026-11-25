@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards: Root CRED (trust/believe)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            overflow: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .root-info {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .root-info strong {
+            color: #667eea;
+            font-size: 18px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-special {
+            background: #e8f4f8;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-special:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .progress {
+            text-align: center;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .card-container {
+            perspective: 1000px;
+            margin-bottom: 30px;
+            height: 400px;
+            cursor: pointer;
+        }
+
+        .card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 48px;
+            font-weight: 700;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            transform: rotateY(180deg);
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+            overflow-y: auto;
+            font-size: 14px;
+        }
+
+        .definition {
+            font-size: 16px;
+            font-weight: 600;
+            color: #667eea;
+            line-height: 1.6;
+        }
+
+        .root-breakdown {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+        }
+
+        .root-breakdown strong {
+            color: #667eea;
+        }
+
+        .chinese {
+            font-size: 16px;
+            color: #764ba2;
+            font-weight: 600;
+        }
+
+        .example {
+            font-size: 13px;
+            color: #555;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-button {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .bottom-section {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #eee;
+        }
+
+        .root-summary {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .root-summary h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .root-summary p {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .card-container {
+                height: 350px;
+            }
+
+            .card-face {
+                padding: 30px;
+            }
+
+            .card-front {
+                font-size: 36px;
+            }
+
+            .definition {
+                font-size: 14px;
+            }
+
+            button {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+
+            .card-container {
+                height: 300px;
+            }
+
+            .card-face {
+                padding: 20px;
+            }
+
+            .card-front {
+                font-size: 32px;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>CRED Root Flashcards</h1>
+            <p>Master words with the root meaning: trust, believe</p>
+        </div>
+
+        <div class="root-info">
+            <strong>Root: CRED</strong> means <strong>trust, believe, faith</strong>
+            <br>Etymology: Latin credere (to believe, trust)
+        </div>
+
+        <div class="controls">
+            <button class="btn-secondary" onclick="shuffleCards()">🔀 Shuffle</button>
+            <button class="btn-secondary" onclick="toggleAnswersOnly()">👁️ Answers Only</button>
+            <button class="btn-primary" onclick="resetCards()">↻ Reset</button>
+        </div>
+
+        <div class="progress">
+            <span id="progressText">Card 1 of 12</span>
+        </div>
+
+        <div class="card-container" onclick="flipCard()">
+            <div class="card" id="card">
+                <div class="card-face card-front" id="cardFront"></div>
+                <div class="card-face card-back" id="cardBack"></div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="btn-primary nav-button" onclick="prevCard()">← Previous</button>
+            <span style="color: #667eea; font-weight: 600; min-width: 50px; text-align: center;" id="cardNumber">1/12</span>
+            <button class="btn-primary nav-button" onclick="nextCard()">Next →</button>
+        </div>
+
+        <div class="bottom-section">
+            <div class="root-summary">
+                <h3>CRED Root Summary</h3>
+                <p><strong>CRED (trust, believe)</strong> appears in words related to belief, trust, and credibility. When something is incredible, it's hard to believe. A credential proves your trustworthiness. Someone credible deserves your trust. This root helps you understand the connection between concepts of belief, trust, and authentication.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const flashcards = [
+            {
+                word: "credit",
+                definition: "Acknowledgment of achievement; belief/trust in; lending of money",
+                root: "CRED (trust, believe) + -it (Latin suffix)",
+                chinese: "信用；学分；赞扬",
+                example: "She deserves credit for solving this difficult problem."
+            },
+            {
+                word: "credible",
+                definition: "Worthy of belief; trustworthy; convincing",
+                root: "CRED (trust) + -ible (able to be)",
+                chinese: "可信的；值得相信的",
+                example: "The witness provided credible evidence in court."
+            },
+            {
+                word: "incredible",
+                definition: "Impossible or hard to believe; amazing; extraordinary",
+                root: "in- (not) + CRED (believe) + -ible (able)",
+                chinese: "难以置信的；不可思议的",
+                example: "The acrobat performed an incredible feat that left the audience amazed."
+            },
+            {
+                word: "credential",
+                definition: "A qualification or achievement proving someone's ability or authority",
+                root: "CRED (trust) + -ential (of or relating to)",
+                chinese: "资格；证书；凭证",
+                example: "He presented his credentials to the security guard."
+            },
+            {
+                word: "discredit",
+                definition: "To damage the good reputation of; to prove false",
+                root: "dis- (opposite) + CRED (trust)",
+                chinese: "使...失去信誉；贬低",
+                example: "The scandal threatened to discredit the politician."
+            },
+            {
+                word: "creditor",
+                definition: "A person or organization that is owed money by another",
+                root: "CRED (trust/lend) + -or (one who)",
+                chinese: "债权人；放贷人",
+                example: "He had to negotiate with his creditors to repay his debts."
+            },
+            {
+                word: "incredulous",
+                definition: "Unwilling or unable to believe; expressing disbelief",
+                root: "in- (not) + CRED (believe) + -ulous (tending to)",
+                chinese: "怀疑的；不相信的",
+                example: "She gave an incredulous look when he claimed he had won the lottery."
+            },
+            {
+                word: "credulity",
+                definition: "Excessive willingness to believe; gullibility",
+                root: "CRED (believe) + -ity (quality of)",
+                chinese: "易轻信；轻信",
+                example: "The con artist exploited people's credulity to steal their money."
+            },
+            {
+                word: "accredit",
+                definition: "To officially recognize as being of good quality; to authorize",
+                root: "ad- (to) + CRED (trust)",
+                chinese: "认证；授权；赋予信誉",
+                example: "The university is accredited by the national education board."
+            },
+            {
+                word: "credence",
+                definition: "Belief in or acceptance of something; credibility",
+                root: "CRED (believe) + -ence (state of)",
+                chinese: "信任；相信",
+                example: "Scientists give little credence to supernatural explanations."
+            },
+            {
+                word: "credo",
+                definition: "A statement of beliefs or principles; a personal philosophy",
+                root: "CRED (I believe) - Latin 'Credo' means 'I believe'",
+                chinese: "信条；原则",
+                example: "His credo was to always tell the truth, no matter the cost."
+            },
+            {
+                word: "miscreant",
+                definition: "A person who behaves immorally or illegally; a villain or criminal",
+                root: "mis- (badly) + CRED (believe) + -ant (one who)",
+                chinese: "恶棍；坏蛋；不信教者",
+                example: "The miscreant was finally caught by the police."
+            }
+        ];
+
+        let currentIndex = 0;
+        let isFlipped = false;
+        let answersOnlyMode = false;
+        let cards = [...flashcards];
+
+        function displayCard() {
+            const card = cards[currentIndex];
+            const cardElement = document.getElementById('card');
+            cardElement.classList.remove('flipped');
+            isFlipped = false;
+
+            if (answersOnlyMode) {
+                displayCardBack(card);
+                cardElement.classList.add('flipped');
+            } else {
+                displayCardFront(card);
+            }
+
+            updateProgress();
+        }
+
+        function displayCardFront(card) {
+            document.getElementById('cardFront').innerHTML = card.word;
+        }
+
+        function displayCardBack(card) {
+            document.getElementById('cardBack').innerHTML = `
+                <div class="definition">${card.definition}</div>
+                <div class="root-breakdown">
+                    <strong>Root Breakdown:</strong><br>${card.root}
+                </div>
+                <div class="chinese">📝 ${card.chinese}</div>
+                <div class="example">💡 Example: "${card.example}"</div>
+            `;
+        }
+
+        function flipCard() {
+            const cardElement = document.getElementById('card');
+            const card = cards[currentIndex];
+
+            if (!isFlipped) {
+                displayCardBack(card);
+            } else {
+                displayCardFront(card);
+            }
+
+            cardElement.classList.toggle('flipped');
+            isFlipped = !isFlipped;
+        }
+
+        function nextCard() {
+            if (currentIndex < cards.length - 1) {
+                currentIndex++;
+                displayCard();
+            }
+        }
+
+        function prevCard() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                displayCard();
+            }
+        }
+
+        function updateProgress() {
+            document.getElementById('progressText').textContent = `Card ${currentIndex + 1} of ${cards.length}`;
+            document.getElementById('cardNumber').textContent = `${currentIndex + 1}/${cards.length}`;
+
+            document.querySelector('[onclick="prevCard()"]').disabled = currentIndex === 0;
+            document.querySelector('[onclick="nextCard()"]').disabled = currentIndex === cards.length - 1;
+        }
+
+        function shuffleCards() {
+            for (let i = cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cards[i], cards[j]] = [cards[j], cards[i]];
+            }
+            currentIndex = 0;
+            displayCard();
+        }
+
+        function resetCards() {
+            cards = [...flashcards];
+            currentIndex = 0;
+            answersOnlyMode = false;
+            displayCard();
+        }
+
+        function toggleAnswersOnly() {
+            answersOnlyMode = !answersOnlyMode;
+            displayCard();
+        }
+
+        // Initialize
+        displayCard();
+    </script>
+</body>
+</html>

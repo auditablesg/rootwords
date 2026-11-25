@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 3B: Root 'duct' - Flashcards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background-color: white;
+            color: #c0392b;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card {
+            perspective: 1000px;
+            margin-bottom: 20px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+        }
+
+        .card-back {
+            background: white;
+            color: #333;
+            transform: rotateY(180deg);
+        }
+
+        .card-front h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .card-front .hint {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 20px;
+        }
+
+        .card-back .word {
+            font-size: 24px;
+            font-weight: bold;
+            color: #c0392b;
+            margin-bottom: 15px;
+        }
+
+        .card-back .definition {
+            font-size: 16px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .card-back .root {
+            font-size: 13px;
+            background: #f0f0f0;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .card-back .chinese {
+            font-size: 13px;
+            color: #c0392b;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-back .example {
+            font-size: 12px;
+            color: #666;
+            font-style: italic;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+
+        .progress {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 12px 20px;
+            background-color: white;
+            color: #c0392b;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .nav-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .root-summary {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .root-summary h3 {
+            color: #c0392b;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .root-summary p {
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .root-summary strong {
+            color: #333;
+        }
+
+        @media (max-width: 600px) {
+            .card-front h2 {
+                font-size: 28px;
+            }
+
+            .card-back {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Lesson 3B: Root 'duct'</h1>
+        <p class="subtitle">Latin: lead, guide, draw, bring</p>
+
+        <div class="controls">
+            <button onclick="shuffleCards()">🔀 Shuffle</button>
+            <button onclick="resetProgress()">🔄 Reset</button>
+            <button onclick="toggleAnswersOnly()">👁️ Answers Only</button>
+        </div>
+
+        <div class="progress">
+            <span id="cardCount">Card 1</span> of <span id="totalCards">12</span>
+        </div>
+
+        <div id="cardContainer">
+            <!-- Cards will be inserted here -->
+        </div>
+
+        <div class="navigation">
+            <button class="nav-button" id="prevBtn" onclick="previousCard()">← Previous</button>
+            <button class="nav-button" id="nextBtn" onclick="nextCard()">Next →</button>
+        </div>
+
+        <div class="root-summary">
+            <h3>🔑 Root Summary</h3>
+            <p><strong>Latin Root:</strong> duct = lead, guide, draw, bring</p>
+            <p><strong>Key Prefixes:</strong> con-, pro-, intro-, re-, e-, de-</p>
+            <p><strong>Key Suffixes:</strong> -ion, -ive, -or</p>
+            <p><strong>Memory Tip:</strong> Think of "duct" as leading or guiding something - from conducting orchestras to producing goods to education (leading someone to knowledge).</p>
+        </div>
+    </div>
+
+    <script>
+        const flashcards = [
+            {
+                word: "CONDUCT",
+                definition: "To organize and carry out; to direct a performance or group",
+                root: "con- (with/together) + duct (lead)",
+                chinese: "实施/引导 (shíshī/yǐndǎo)",
+                example: "Scientists conduct controlled experiments to test their hypotheses."
+            },
+            {
+                word: "CONDUCTOR",
+                definition: "A person who directs an orchestra or collects fares on a train",
+                root: "duct (lead) + -or (one who)",
+                chinese: "指挥/乘务员 (zhǐhuī/chéngwù yuányuán)",
+                example: "The orchestra conductor raised his baton to signal the start of the symphony."
+            },
+            {
+                word: "PRODUCE",
+                definition: "To make or manufacture from components or raw materials",
+                root: "pro- (forward) + duct (lead)",
+                chinese: "生产/产生 (shēngchǎn/chǎnshēng)",
+                example: "Fertile agricultural land helps farmers produce high-quality crops."
+            },
+            {
+                word: "PRODUCT",
+                definition: "Something that is manufactured or produced",
+                root: "pro- (forward) + duct (lead)",
+                chinese: "产品 (chǎnpǐn)",
+                example: "Every manufactured product must pass strict quality inspections."
+            },
+            {
+                word: "REDUCTION",
+                definition: "The action of making something smaller or less",
+                root: "re- (back) + duct (lead) + -ion (action)",
+                chinese: "减少/降低 (jiǎnshǎo/jiàngdī)",
+                example: "The factory achieved a significant reduction in waste."
+            },
+            {
+                word: "INTRODUCE",
+                definition: "To bring something new into operation or make parties known",
+                root: "intro- (into) + duct (lead)",
+                chinese: "介绍/引进 (jièshào/yǐnjìn)",
+                example: "The teacher will introduce a new grammar topic during today's lesson."
+            },
+            {
+                word: "EDUCATE",
+                definition: "To teach or provide systematic instruction",
+                root: "e- (out) + duct (lead)",
+                chinese: "教育 (jiàoyù)",
+                example: "Schools aim to educate students in academics and moral values."
+            },
+            {
+                word: "EDUCATION",
+                definition: "The process of receiving systematic instruction",
+                root: "e- (out) + duct (lead) + -tion (action)",
+                chinese: "教育 (jiàoyù)",
+                example: "Access to quality education is essential for national development."
+            },
+            {
+                word: "PRODUCTIVE",
+                definition: "Producing good or abundant results; achieving a lot",
+                root: "pro- (forward) + duct (lead) + -ive (full of)",
+                chinese: "多产的/有成效的 (duōchǎn de/yǒu chéngxiào de)",
+                example: "Taking short breaks during study can make revision more productive."
+            },
+            {
+                word: "AQUEDUCT",
+                definition: "A bridge-like structure built to carry water across a valley",
+                root: "aqua- (water) + duct (lead)",
+                chinese: "渡槽/水渠 (dùcáo/shuǐ qú)",
+                example: "The Roman aqueduct transported fresh water to the city."
+            },
+            {
+                word: "VIADUCT",
+                definition: "A bridge or series of arches spanning a valley or gap",
+                root: "via- (way) + duct (lead)",
+                chinese: "高架桥/跨桥 (gāojiàqiào/kuàqiào)",
+                example: "The viaduct allowed the train to cross the deep valley safely."
+            },
+            {
+                word: "DEDUCTION",
+                definition: "The process of reaching a conclusion by reasoning; an amount subtracted",
+                root: "de- (away/down) + duct (lead) + -ion (action)",
+                chinese: "演绎/扣除 (yǎnyì/kòuchu)",
+                example: "Through logical deduction, the detective solved the mystery."
+            }
+        ];
+
+        let currentCard = 0;
+        let isFlipped = false;
+        let answersOnly = false;
+
+        function renderCard() {
+            const container = document.getElementById('cardContainer');
+            const card = flashcards[currentCard];
+
+            container.innerHTML = `
+                <div class="card ${isFlipped ? 'flipped' : ''}" onclick="flipCard()">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <h2>${card.word}</h2>
+                            <div class="hint">Click to reveal answer</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="word">${card.word}</div>
+                            <div class="definition">${card.definition}</div>
+                            <div class="root">📌 ${card.root}</div>
+                            <div class="chinese">🇨🇳 ${card.chinese}</div>
+                            <div class="example">"${card.example}"</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            if (answersOnly) {
+                document.querySelector('.card').classList.add('flipped');
+                isFlipped = true;
+            }
+
+            updateProgress();
+            updateNavButtons();
+        }
+
+        function flipCard() {
+            const card = document.querySelector('.card');
+            card.classList.toggle('flipped');
+            isFlipped = !isFlipped;
+        }
+
+        function nextCard() {
+            if (currentCard < flashcards.length - 1) {
+                currentCard++;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function previousCard() {
+            if (currentCard > 0) {
+                currentCard--;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function updateProgress() {
+            document.getElementById('cardCount').textContent = currentCard + 1;
+            document.getElementById('totalCards').textContent = flashcards.length;
+        }
+
+        function updateNavButtons() {
+            document.getElementById('prevBtn').disabled = currentCard === 0;
+            document.getElementById('nextBtn').disabled = currentCard === flashcards.length - 1;
+        }
+
+        function shuffleCards() {
+            for (let i = flashcards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+            }
+            currentCard = 0;
+            isFlipped = false;
+            renderCard();
+        }
+
+        function resetProgress() {
+            currentCard = 0;
+            isFlipped = false;
+            answersOnly = false;
+            renderCard();
+        }
+
+        function toggleAnswersOnly() {
+            answersOnly = !answersOnly;
+            renderCard();
+        }
+
+        // Initialize
+        renderCard();
+    </script>
+</body>
+</html>
